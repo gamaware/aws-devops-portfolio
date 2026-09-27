@@ -17,7 +17,7 @@ index:
 
 services:
   - id: terraform-audit
-    offer: Terraform audit and fix
+    offer: Terraform on AWS audit and fix
     offer_id: "2104038470594605337"
     problem: >-
       Terraform nobody trusts: local state, copy-pasted environments and plans that could delete production data.
@@ -34,11 +34,11 @@ services:
       path: report/REPORT.md
       summary: 10 findings ranked by risk, each with evidence and a fix, plus the repair order and a state migration.
     verification: >-
-      Checkov and tflint counts before and after, terraform test and a plan gate, all offline against a local
-      emulator.
+      Checkov and tflint counts before and after, terraform test with a mocked provider and plan-gate fixtures, all
+      offline; `make demo` replays the state migration against a local emulator.
 
   - id: cicd
-    offer: CI/CD pipeline for your deployments
+    offer: CI/CD pipeline to AWS
     offer_id: "2104076824776984674"
     problem: Long-lived AWS keys in CI, and deploys that can ship an image nobody scanned.
     repo:
@@ -56,7 +56,7 @@ services:
       pytest policy tests, mocked terraform test, tflint, Checkov, actionlint and zizmor, with no AWS credentials.
 
   - id: iam-review
-    offer: AWS security and least-privilege IAM review
+    offer: AWS security and IAM review
     offer_id: "2104114345046247462"
     problem: An account that grew without an access model, with administrator CI roles, root keys and public buckets.
     repo:
@@ -75,7 +75,7 @@ services:
       diffs it.
 
   - id: eks
-    offer: Kubernetes on AWS EKS
+    offer: Kubernetes on Amazon EKS
     offer_id: "2104078676919912486"
     problem: A team that needs Kubernetes on AWS without a hand-built cluster or a branch per environment.
     repo:
@@ -113,7 +113,7 @@ services:
       constraints.
 
   - id: aws-foundation
-    offer: AWS foundation for a new project
+    offer: AWS landing zone for a new project
     offer_id: "2104109699257574353"
     problem: A new project that starts in one AWS account, with shared administrator access and no audit trail.
     repo:
@@ -195,7 +195,6 @@ services:
     repo:
       name: aws-devops-workshop-labs
       kind: labs
-      status: in-progress
       description: >-
         Demonstrates hands-on AWS and DevOps teaching through numbered labs with starter code, solutions and tests;
         verified offline by running each lab's tests against its solution.
@@ -205,7 +204,7 @@ services:
       path: labs/
       summary: Numbered labs, each with objectives, starter code, a solution, tests and reset steps.
     verification: >-
-      Each lab's tests run against its solution with no AWS account. Work on the repository continues.
+      Each lab's tests run against its solution with no AWS account.
 
 more:
   - repo:
