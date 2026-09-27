@@ -241,11 +241,12 @@ REPOS_ROOT=/tmp/portfolio scripts/clone-siblings.sh
 make verify REPOS_ROOT=/tmp/portfolio
 ```
 
-A successful run finishes with a count and zero failures:
+A successful run ends with the check count and the success line:
 
 ```text
 pass  cdk-python-nag-pipeline-lab: required files
 78 passed, 0 failed, 0 skipped
+verify: all checks passed
 ```
 
 After the initial `uv sync`, verification takes approximately five seconds.
@@ -271,7 +272,9 @@ preview. Because this repository provisions no AWS resources, the live test acce
 
 ## Decisions and trade-offs
 
-| ADR | Title | Status |
+Architecture decision records follow the *Fundamentals of Software Architecture* (2nd ed.) format.
+
+| Number | Title | Status |
 | --- | --- | --- |
 | [0001](docs/adr/0001-generate-cards-from-catalog.md) | Generate the service cards from one catalog file | Accepted |
 | [0002](docs/adr/0002-check-sibling-repositories-offline.md) | Check the sibling repositories offline from local clones | Accepted |

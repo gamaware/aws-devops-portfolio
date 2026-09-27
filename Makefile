@@ -27,6 +27,7 @@ check: ## Check the catalog, this README and every listed repository (offline)
 	REPOS_ROOT="$(REPOS_ROOT)" $(PY) check
 
 verify: lint test check ## Everything CI runs (offline)
+	@echo "verify: all checks passed"
 
 readme: ## Regenerate the service cards in README.md from data/catalog.yaml
 	$(PY) readme
