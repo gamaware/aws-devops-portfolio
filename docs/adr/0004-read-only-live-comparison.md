@@ -1,4 +1,4 @@
-# ADR 0004: Compare with live GitHub settings only on demand, read-only
+# 0004. Compare with live GitHub settings only on demand, read-only
 
 ## Status
 

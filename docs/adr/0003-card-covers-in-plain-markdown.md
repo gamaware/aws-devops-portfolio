@@ -1,4 +1,4 @@
-# ADR 0003: Keep card covers as small copies in plain Markdown
+# 0003. Keep card covers as small copies in plain Markdown
 
 ## Status
 

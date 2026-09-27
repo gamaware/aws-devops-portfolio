@@ -1,4 +1,4 @@
-# ADR 0001: Generate the service cards from one catalog file
+# 0001. Generate the service cards from one catalog file
 
 ## Status
 

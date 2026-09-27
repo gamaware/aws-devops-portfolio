@@ -1,4 +1,4 @@
-# ADR 0002: Check the sibling repositories offline from local clones
+# 0002. Check the sibling repositories offline from local clones
 
 ## Status
 
