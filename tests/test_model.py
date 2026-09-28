@@ -14,10 +14,8 @@ def test_repository_catalog_passes_every_rule():
 def test_minimal_catalog_parses_with_defaults(raw):
     catalog = parse(raw)
     service = catalog.services[0]
-    assert service.offer_status == "live"
     assert service.repo.status == "ready"
     assert service.repo.standard is True
-    assert catalog.offer_url(service) == "https://www.upwork.com/services/product/1000000000000000001"
     assert catalog.artifact_url(service) == "https://github.com/example-owner/example-lab/blob/main/report/REPORT.md"
 
 
@@ -70,17 +68,11 @@ def test_sample_kind_requires_sample_deliverable_topic(raw):
     assert "example-lab: missing required topic 'sample-deliverable'" in errors
 
 
-@pytest.mark.parametrize("offer_id", ["123", "10000000000000000x1", ""])
-def test_offer_id_must_be_nineteen_digits(raw, offer_id):
-    raw["services"][0]["offer_id"] = offer_id
-    assert any("offer_id must be 19 digits" in e for e in catalog_rule_errors(parse(raw)))
-
-
 def test_duplicates_are_reported(raw):
     raw["services"].append(raw["services"][0])
     errors = catalog_rule_errors(parse(raw))
     assert "duplicate service id: audit" in errors
-    assert "duplicate offer_id: 1000000000000000001" in errors
+    assert "duplicate offer: Terraform audit and fix" in errors
     assert "duplicate repository name: example-lab" in errors
 
 
@@ -97,7 +89,6 @@ def test_artifact_path_stays_inside_the_repository(raw, path):
         (lambda r: r["services"][0].pop("problem"), "'problem' must be a non-empty string"),
         (lambda r: r["services"][0]["repo"].update(status="done"), "status 'done'"),
         (lambda r: r["services"][0]["repo"].update(kind="demo"), "kind 'demo'"),
-        (lambda r: r["services"][0].update(offer_status="draft"), "offer_status 'draft'"),
         (lambda r: r["services"][0]["repo"].update(topics="aws"), "'topics' must be a list"),
         (lambda r: r["services"][0]["repo"].update(local="../outside"), "'local' must be a folder name"),
         (lambda r: r["services"][0].update(id="../x"), "id '../x' must be lowercase"),
@@ -122,17 +113,6 @@ def test_anchor_matches_github(title, expected):
     assert anchor(title) == expected
 
 
-@pytest.mark.parametrize(
-    ("field", "value", "message"),
-    [
-        (
-            "offer_url_prefix",
-            "https://example.com/offers/",
-            "offer_url_prefix must be the Upwork Catalog product prefix",
-        ),
-        ("profile_url", "https://example.com/profile", "profile_url must be an Upwork freelancer profile"),
-    ],
-)
-def test_upwork_urls_are_checked(raw, field, value, message):
-    raw[field] = value
-    assert message in catalog_rule_errors(parse(raw))
+def test_profile_url_is_checked(raw):
+    raw["profile_url"] = "https://example.com/profile"
+    assert "profile_url must be an Upwork freelancer profile" in catalog_rule_errors(parse(raw))

@@ -8,15 +8,15 @@ Accepted
 
 The index describes ten services, each with an Upwork offer, a repository, an artifact and a verification scope.
 The same facts also appear in each repository's GitHub description and topics. In a hand-written README, a
-renamed repository or a new offer ID means edits in two or three places, and nothing notices a missed one.
+renamed repository or offer means edits in two or three places, and nothing notices a missed one.
 
 ## Decision
 
-`data/catalog.yaml` holds every service, offer ID, repository name, local folder, artifact path, description and
+`data/catalog.yaml` holds every service, offer name, repository name, local folder, artifact path, description and
 topic list. `make readme` renders the overview table and the cards between the `BEGIN GENERATED` and
-`END GENERATED` markers in `README.md`. Prose outside the markers stays hand-written. An offer marked
-`offer_status: pending` renders without a link, and a repository marked `status: in-progress` shows that label on its
-card.
+`END GENERATED` markers in `README.md`. Prose outside the markers stays hand-written. Every offer links to the
+Upwork profile in `profile_url`, because offer URLs are not stable. A repository marked `status: in-progress` shows
+that label on its card.
 
 ## Consequences
 
@@ -28,7 +28,7 @@ card.
 ## Compliance
 
 `make check` renders the cards in memory and fails when `README.md` differs. `tests/test_render.py` covers the card
-fields, the pending offer and the in-progress label.
+fields, the profile link and the in-progress label.
 
 ## Notes
 

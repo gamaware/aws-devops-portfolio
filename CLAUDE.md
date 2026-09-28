@@ -10,7 +10,7 @@ listed repository against the portfolio standard.
 
 ## Structure
 
-- `data/catalog.yaml`: services, offer IDs, repository names (GitHub) and local folders, artifacts, descriptions,
+- `data/catalog.yaml`: services, offer names, repository names (GitHub) and local folders, artifacts, descriptions,
   topics.
 - `scripts/portfolio_check/`: `model` (load and validate), `readme` (section order, generated markers), `render`
   (cards), `checks` (offline), `covers` (Pillow resize), `live` (GitHub GraphQL, read-only), `__main__`.

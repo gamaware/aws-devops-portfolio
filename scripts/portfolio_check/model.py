@@ -17,8 +17,6 @@ TOPICS_MAX = 10
 REQUIRED_TOPICS = ("aws", "devops", "portfolio")
 KIND_TOPIC = {"lab": "lab", "labs": "lab", "sample": "sample-deliverable", "index": None}
 STATUSES = ("ready", "in-progress")
-OFFER_STATUSES = ("live", "pending")
-OFFER_ID_RE = re.compile(r"^\d{19}$")
 SLUG_RE = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*$")
 REPO_NAME_RE = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*$")
 
@@ -49,8 +47,6 @@ class Artifact:
 class Service:
     id: str
     offer: str
-    offer_id: str
-    offer_status: str
     problem: str
     repo: Repo
     artifact: Artifact
@@ -67,13 +63,9 @@ class Extra:
 class Catalog:
     owner: str
     profile_url: str
-    offer_url_prefix: str
     index: Repo
     services: tuple[Service, ...]
     more: tuple[Extra, ...]
-
-    def offer_url(self, service: Service) -> str:
-        return f"{self.offer_url_prefix}{service.offer_id}"
 
     def repo_url(self, repo: Repo) -> str:
         return f"https://github.com/{self.owner}/{repo.name}"
@@ -136,14 +128,9 @@ def _service(node: object, position: int) -> Service:
     artifact = node.get("artifact")
     if not isinstance(artifact, dict):
         raise CatalogError(f"{where}: 'artifact' must be a mapping")
-    offer_status = node.get("offer_status", "live")
-    if offer_status not in OFFER_STATUSES:
-        raise CatalogError(f"{where}: offer_status '{offer_status}' is not one of {', '.join(OFFER_STATUSES)}")
     return Service(
         id=sid,
         offer=_text(node, "offer", where),
-        offer_id=str(node.get("offer_id", "")),
-        offer_status=offer_status,
         problem=_text(node, "problem", where),
         repo=_repo(node.get("repo"), where),
         artifact=Artifact(
@@ -173,7 +160,6 @@ def parse(raw: object) -> Catalog:
     return Catalog(
         owner=_text(raw, "owner", "catalog"),
         profile_url=_text(raw, "profile_url", "catalog"),
-        offer_url_prefix=_text(raw, "offer_url_prefix", "catalog"),
         index=_repo(raw.get("index"), "index"),
         services=tuple(_service(node, i) for i, node in enumerate(services)),
         more=tuple(extras),
@@ -211,21 +197,17 @@ def repo_rule_errors(repo: Repo) -> list[str]:
 def catalog_rule_errors(catalog: Catalog) -> list[str]:
     """Rules across the whole catalog that need no file outside data/catalog.yaml."""
     errors = []
-    if not catalog.offer_url_prefix.startswith("https://www.upwork.com/services/product/"):
-        errors.append("offer_url_prefix must be the Upwork Catalog product prefix")
     if not catalog.profile_url.startswith("https://www.upwork.com/freelancers/~"):
         errors.append("profile_url must be an Upwork freelancer profile")
     for field, values in (
         ("service id", [s.id for s in catalog.services]),
-        ("offer_id", [s.offer_id for s in catalog.services]),
+        ("offer", [s.offer for s in catalog.services]),
         ("repository name", [r.name for r in catalog.all_repos()]),
         ("local folder", [r.local for r in catalog.all_repos()]),
     ):
         duplicates = sorted({v for v in values if values.count(v) > 1})
         errors.extend(f"duplicate {field}: {d}" for d in duplicates)
     for service in catalog.services:
-        if not OFFER_ID_RE.match(service.offer_id):
-            errors.append(f"service '{service.id}': offer_id must be 19 digits, got '{service.offer_id}'")
         if service.artifact.path.startswith("/") or ".." in Path(service.artifact.path).parts:
             errors.append(f"service '{service.id}': artifact path must be relative to the repository root")
     for repo in catalog.all_repos():

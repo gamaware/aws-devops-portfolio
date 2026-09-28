@@ -6,7 +6,7 @@ reviews:
   path_instructions:
     - path: "data/catalog.yaml"
       instructions: >-
-        The single source for every service card. Offer IDs are Upwork Catalog product IDs (digits only), repo
+        The single source for every service card. Every offer links to the Upwork profile in profile_url, repo
         names are GitHub names, local names are sibling folder names. Descriptions must follow "Demonstrates
         <capability> through <artifact>; verified <scope>." Every change needs `make readme` so the generated
         cards in README.md stay in step.

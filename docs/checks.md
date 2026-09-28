@@ -10,10 +10,9 @@ These need only `data/catalog.yaml` (`scripts/portfolio_check/model.py`).
 
 | Rule | Source |
 | --- | --- |
-| Service IDs, offer IDs, repository names and local folders are unique | Catalog integrity |
+| Service IDs, offer names, repository names and local folders are unique | Catalog integrity |
 | Service IDs, repository names and local folders are lowercase words joined by hyphens, so no path leaves `assets/` or `REPOS_ROOT` | Catalog integrity; ADR 0002 |
-| `profile_url` is an Upwork freelancer profile and `offer_url_prefix` the Upwork Catalog product prefix | Upwork links |
-| Offer IDs are 19 digits; the URL is `https://www.upwork.com/services/product/<id>` | Upwork Catalog links |
+| `profile_url` is an Upwork freelancer profile; every card links it as "*service* on Upwork" | Upwork links |
 | Artifact paths are relative and stay inside the repository | Catalog integrity |
 | Descriptions read "Demonstrates *capability* through *artifact*; verified *scope*." within 350 characters | Standard, cohesion rules; GitHub limit |
 | At most 10 topics, each lowercase letters, digits and hyphens, 50 characters at most | Standard; GitHub topic rules |
@@ -46,15 +45,8 @@ The check reads each repository from `REPOS_ROOT/<local>`, where `REPOS_ROOT` de
 ## Covers
 
 `make covers` rebuilds `assets/<service id>.png` from each repository's `docs/assets/cover.png`. `make check` resizes
-the source again with the Pillow version pinned in `uv.lock` and compares pixels. `aws-devops-workshop-labs` has no
-cover yet, so its card uses the approved Upwork cover:
-
-```bash
-make covers SOURCES="--source workshop=path/to/catalog-workshop.png"
-```
-
-Once that repository commits its own cover, `make check` compares against it and asks for `make covers` if it
-differs.
+the source again with the Pillow version pinned in `uv.lock` and compares pixels, and asks for `make covers` when they
+differ.
 
 ## Live comparison
 

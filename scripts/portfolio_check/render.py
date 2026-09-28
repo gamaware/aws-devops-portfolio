@@ -20,10 +20,9 @@ def anchor(title: str) -> str:
     return kept.replace(" ", "-")
 
 
-def _offer_link(catalog: Catalog, service: Service) -> str:
-    if service.offer_status == "pending":
-        return f"{service.offer} (listing pending on Upwork)"
-    return f"[{service.offer}]({catalog.offer_url(service)})"
+def offer_link(catalog: Catalog, service: Service) -> str:
+    """Upwork offer URLs change, so every offer links to the freelancer profile."""
+    return f"[{service.offer} on Upwork]({catalog.profile_url})"
 
 
 def _repo_line(catalog: Catalog, service: Service) -> str:
@@ -36,16 +35,14 @@ def _repo_line(catalog: Catalog, service: Service) -> str:
 
 def overview_table(catalog: Catalog) -> list[str]:
     rows = [
-        "| Service | Repository | Strongest artifact | Upwork offer |",
-        "| --- | --- | --- | --- |",
+        "| Service | Repository | Strongest artifact |",
+        "| --- | --- | --- |",
     ]
     for service in catalog.services:
-        offer = "pending" if service.offer_status == "pending" else f"[Open]({catalog.offer_url(service)})"
         rows.append(
             f"| [{service.offer}](#{anchor(service.offer)}) "
             f"| [`{service.repo.name}`]({catalog.repo_url(service.repo)}) "
-            f"| [{service.artifact.label}]({catalog.artifact_url(service)}) "
-            f"| {offer} |"
+            f"| [{service.artifact.label}]({catalog.artifact_url(service)}) |"
         )
     return rows
 
@@ -69,12 +66,12 @@ def card(catalog: Catalog, service: Service) -> list[str]:
         f"**Strongest artifact:** [{service.artifact.label}]({catalog.artifact_url(service)}). "
         f"{service.artifact.summary}",
         f"**Verification scope:** {service.verification}",
-        f"**Upwork offer:** {_offer_link(catalog, service)}",
+        f"**Upwork offer:** {offer_link(catalog, service)}",
     ]
     return [
         f"### {service.offer}",
         "",
-        f"[![{service.offer} cover]({cover_path(service)})]({catalog.repo_url(service.repo)})",
+        f"[![{service.offer}]({cover_path(service)})]({catalog.repo_url(service.repo)})",
         "",
         *(line for field in fields for line in bullet(field)),
         "",

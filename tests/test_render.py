@@ -6,18 +6,16 @@ from portfolio_check.model import load, parse
 def test_card_has_the_four_fields_and_the_offer(raw):
     catalog = parse(raw)
     text = "\n".join(render.card(catalog, catalog.services[0]))
-    assert "[![Terraform audit and fix cover](assets/audit.png)](https://github.com/example-owner/example-lab)" in text
+    assert "[![Terraform audit and fix](assets/audit.png)](https://github.com/example-owner/example-lab)" in text
     for field in ("Client problem", "Repository", "Strongest artifact", "Verification scope", "Upwork offer"):
         assert f"- **{field}:**" in text
-    assert "[Terraform audit and fix](https://www.upwork.com/services/product/1000000000000000001)" in text
+    assert "[Terraform audit and fix on Upwork](https://www.upwork.com/freelancers/~0100000000000000000)" in text
 
 
-def test_pending_offer_has_no_link(raw):
-    raw["services"][0]["offer_status"] = "pending"
-    catalog = parse(raw)
-    block = render.cards_block(catalog)
+def test_every_offer_links_to_the_profile(raw):
+    block = render.cards_block(parse(raw))
     assert "services/product/" not in block
-    assert "(listing pending on Upwork)" in block
+    assert block.count("https://www.upwork.com/freelancers/~0100000000000000000") == len(raw["services"])
 
 
 def test_in_progress_repository_is_labelled(raw):
@@ -36,4 +34,4 @@ def test_real_catalog_renders_every_service_and_the_extra():
     assert block.count("\n### ") == len(catalog.services) + 1
     assert "https://github.com/gamaware/terraform-aws-rescue-lab" in block
     assert "terraform-aws-baseline-lab" not in block
-    assert "2104111946055354406" not in block  # the cost offer is still pending
+    assert "services/product/" not in block

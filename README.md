@@ -23,26 +23,26 @@ points to the first artifact to review, and explains what the repository can ver
 ## Inspect the deliverable
 
 Choose the service closest to your problem, then follow its card to the repository, the first artifact to review
-and the Upwork offer.
+and the service on Upwork.
 
 <!-- BEGIN GENERATED: cards from data/catalog.yaml, run `make readme` -->
 
-| Service | Repository | Strongest artifact | Upwork offer |
-| --- | --- | --- | --- |
-| [Terraform on AWS audit and fix](#terraform-on-aws-audit-and-fix) | [`terraform-aws-rescue-lab`](https://github.com/gamaware/terraform-aws-rescue-lab) | [Diagnosis report](https://github.com/gamaware/terraform-aws-rescue-lab/blob/main/report/REPORT.md) | [Open](https://www.upwork.com/services/product/2104038470594605337) |
-| [CI/CD pipeline to AWS](#cicd-pipeline-to-aws) | [`github-actions-aws-oidc-lab`](https://github.com/gamaware/github-actions-aws-oidc-lab) | [Deploy workflow](https://github.com/gamaware/github-actions-aws-oidc-lab/blob/main/.github/workflows/deploy.yml) | [Open](https://www.upwork.com/services/product/2104076824776984674) |
-| [AWS security and IAM review](#aws-security-and-iam-review) | [`aws-iam-security-review-sample`](https://github.com/gamaware/aws-iam-security-review-sample) | [Security review report](https://github.com/gamaware/aws-iam-security-review-sample/blob/main/report/REPORT.md) | [Open](https://www.upwork.com/services/product/2104114345046247462) |
-| [Kubernetes on Amazon EKS](#kubernetes-on-amazon-eks) | [`terraform-aws-eks-gitops-lab`](https://github.com/gamaware/terraform-aws-eks-gitops-lab) | [EKS module](https://github.com/gamaware/terraform-aws-eks-gitops-lab/tree/main/infra/terraform/modules/eks) | [Open](https://www.upwork.com/services/product/2104078676919912486) |
-| [Containerize and deploy to ECS Fargate](#containerize-and-deploy-to-ecs-fargate) | [`aws-ecs-fargate-deploy-lab`](https://github.com/gamaware/aws-ecs-fargate-deploy-lab) | [ECS service definition](https://github.com/gamaware/aws-ecs-fargate-deploy-lab/blob/main/infra/terraform/service/ecs.tf) | [Open](https://www.upwork.com/services/product/2104080960519264487) |
-| [AWS landing zone for a new project](#aws-landing-zone-for-a-new-project) | [`terraform-aws-landing-zone-lab`](https://github.com/gamaware/terraform-aws-landing-zone-lab) | [Service control policies](https://github.com/gamaware/terraform-aws-landing-zone-lab/tree/main/policies/scp) | [Open](https://www.upwork.com/services/product/2104109699257574353) |
-| [DevOps and Well-Architected assessment](#devops-and-well-architected-assessment) | [`aws-well-architected-assessment-sample`](https://github.com/gamaware/aws-well-architected-assessment-sample) | [Assessment report](https://github.com/gamaware/aws-well-architected-assessment-sample/blob/main/report/REPORT.md) | [Open](https://www.upwork.com/services/product/2104073138772091857) |
-| [AWS cost optimization audit](#aws-cost-optimization-audit) | [`aws-cost-optimization-audit-sample`](https://github.com/gamaware/aws-cost-optimization-audit-sample) | [Cost audit report](https://github.com/gamaware/aws-cost-optimization-audit-sample/blob/main/report/REPORT.md) | pending |
-| [Migration to AWS](#migration-to-aws) | [`aws-migration-runbook-sample`](https://github.com/gamaware/aws-migration-runbook-sample) | [Wave 1 cutover runbook](https://github.com/gamaware/aws-migration-runbook-sample/blob/main/runbooks/wave-1-cutover.md) | [Open](https://www.upwork.com/services/product/2104087994879419345) |
-| [AWS workshop and mentoring](#aws-workshop-and-mentoring) | [`aws-devops-workshop-labs`](https://github.com/gamaware/aws-devops-workshop-labs) | [Labs](https://github.com/gamaware/aws-devops-workshop-labs/tree/main/labs) | [Open](https://www.upwork.com/services/product/2104117031899416674) |
+| Service | Repository | Strongest artifact |
+| --- | --- | --- |
+| [Terraform on AWS audit and fix](#terraform-on-aws-audit-and-fix) | [`terraform-aws-rescue-lab`](https://github.com/gamaware/terraform-aws-rescue-lab) | [Diagnosis report](https://github.com/gamaware/terraform-aws-rescue-lab/blob/main/report/REPORT.md) |
+| [CI/CD pipeline to AWS](#cicd-pipeline-to-aws) | [`github-actions-aws-oidc-lab`](https://github.com/gamaware/github-actions-aws-oidc-lab) | [Deploy workflow](https://github.com/gamaware/github-actions-aws-oidc-lab/blob/main/.github/workflows/deploy.yml) |
+| [AWS security and IAM review](#aws-security-and-iam-review) | [`aws-iam-security-review-sample`](https://github.com/gamaware/aws-iam-security-review-sample) | [Security review report](https://github.com/gamaware/aws-iam-security-review-sample/blob/main/report/REPORT.md) |
+| [Kubernetes on Amazon EKS](#kubernetes-on-amazon-eks) | [`terraform-aws-eks-gitops-lab`](https://github.com/gamaware/terraform-aws-eks-gitops-lab) | [EKS module](https://github.com/gamaware/terraform-aws-eks-gitops-lab/tree/main/infra/terraform/modules/eks) |
+| [Containerize and deploy to ECS Fargate](#containerize-and-deploy-to-ecs-fargate) | [`aws-ecs-fargate-deploy-lab`](https://github.com/gamaware/aws-ecs-fargate-deploy-lab) | [ECS service definition](https://github.com/gamaware/aws-ecs-fargate-deploy-lab/blob/main/infra/terraform/service/ecs.tf) |
+| [AWS landing zone for a new project](#aws-landing-zone-for-a-new-project) | [`terraform-aws-landing-zone-lab`](https://github.com/gamaware/terraform-aws-landing-zone-lab) | [Service control policies](https://github.com/gamaware/terraform-aws-landing-zone-lab/tree/main/policies/scp) |
+| [DevOps and Well-Architected assessment](#devops-and-well-architected-assessment) | [`aws-well-architected-assessment-sample`](https://github.com/gamaware/aws-well-architected-assessment-sample) | [Assessment report](https://github.com/gamaware/aws-well-architected-assessment-sample/blob/main/report/REPORT.md) |
+| [AWS cost optimization audit](#aws-cost-optimization-audit) | [`aws-cost-optimization-audit-sample`](https://github.com/gamaware/aws-cost-optimization-audit-sample) | [Cost audit report](https://github.com/gamaware/aws-cost-optimization-audit-sample/blob/main/report/REPORT.md) |
+| [Migration to AWS](#migration-to-aws) | [`aws-migration-runbook-sample`](https://github.com/gamaware/aws-migration-runbook-sample) | [Wave 1 cutover runbook](https://github.com/gamaware/aws-migration-runbook-sample/blob/main/runbooks/wave-1-cutover.md) |
+| [AWS workshop and mentoring](#aws-workshop-and-mentoring) | [`aws-devops-workshop-labs`](https://github.com/gamaware/aws-devops-workshop-labs) | [Labs](https://github.com/gamaware/aws-devops-workshop-labs/tree/main/labs) |
 
 ### Terraform on AWS audit and fix
 
-[![Terraform on AWS audit and fix cover](assets/terraform-audit.png)](https://github.com/gamaware/terraform-aws-rescue-lab)
+[![Terraform on AWS audit and fix](assets/terraform-audit.png)](https://github.com/gamaware/terraform-aws-rescue-lab)
 
 - **Client problem:** Terraform nobody trusts: local state, copy-pasted environments and plans that could delete
   production data.
@@ -52,11 +52,11 @@ and the Upwork offer.
   each with evidence and a fix, plus the repair order and a state migration.
 - **Verification scope:** Checkov and tflint counts before and after, terraform test with a mocked provider and
   plan-gate fixtures, all offline; `make demo` replays the state migration against a local emulator.
-- **Upwork offer:** [Terraform on AWS audit and fix](https://www.upwork.com/services/product/2104038470594605337)
+- **Upwork offer:** [Terraform on AWS audit and fix on Upwork](https://www.upwork.com/freelancers/~014b3520cf9e140103)
 
 ### CI/CD pipeline to AWS
 
-[![CI/CD pipeline to AWS cover](assets/cicd.png)](https://github.com/gamaware/github-actions-aws-oidc-lab)
+[![CI/CD pipeline to AWS](assets/cicd.png)](https://github.com/gamaware/github-actions-aws-oidc-lab)
 
 - **Client problem:** Long-lived AWS keys in CI, and deploys that can ship an image nobody scanned.
 - **Repository:** [`github-actions-aws-oidc-lab`](https://github.com/gamaware/github-actions-aws-oidc-lab), lab
@@ -65,11 +65,11 @@ and the Upwork offer.
   Trivy gate, OIDC role, push by digest, deploy, then fail the run if ECS rolled back.
 - **Verification scope:** pytest policy tests, mocked terraform test, tflint, Checkov, actionlint and zizmor, with no
   AWS credentials.
-- **Upwork offer:** [CI/CD pipeline to AWS](https://www.upwork.com/services/product/2104076824776984674)
+- **Upwork offer:** [CI/CD pipeline to AWS on Upwork](https://www.upwork.com/freelancers/~014b3520cf9e140103)
 
 ### AWS security and IAM review
 
-[![AWS security and IAM review cover](assets/iam-review.png)](https://github.com/gamaware/aws-iam-security-review-sample)
+[![AWS security and IAM review](assets/iam-review.png)](https://github.com/gamaware/aws-iam-security-review-sample)
 
 - **Client problem:** An account that grew without an access model, with administrator CI roles, root keys and public
   buckets.
@@ -80,11 +80,11 @@ and the Upwork offer.
   evidence, impact and policy rewrites, then quick wins and a baseline SCP.
 - **Verification scope:** 17 offline checks and Checkov run on the account before and after the fixes; CI regenerates
   the evidence and diffs it.
-- **Upwork offer:** [AWS security and IAM review](https://www.upwork.com/services/product/2104114345046247462)
+- **Upwork offer:** [AWS security and IAM review on Upwork](https://www.upwork.com/freelancers/~014b3520cf9e140103)
 
 ### Kubernetes on Amazon EKS
 
-[![Kubernetes on Amazon EKS cover](assets/eks.png)](https://github.com/gamaware/terraform-aws-eks-gitops-lab)
+[![Kubernetes on Amazon EKS](assets/eks.png)](https://github.com/gamaware/terraform-aws-eks-gitops-lab)
 
 - **Client problem:** A team that needs Kubernetes on AWS without a hand-built cluster or a branch per environment.
 - **Repository:** [`terraform-aws-eks-gitops-lab`](https://github.com/gamaware/terraform-aws-eks-gitops-lab), lab
@@ -93,11 +93,11 @@ and the Upwork offer.
   access entries, add-ons and Pod Identity per controller, with mocked terraform test runs.
 - **Verification scope:** Mocked terraform test, Helm lint and render assertions, and kubeconform schema checks; helm
   test needs a cluster and runs only live.
-- **Upwork offer:** [Kubernetes on Amazon EKS](https://www.upwork.com/services/product/2104078676919912486)
+- **Upwork offer:** [Kubernetes on Amazon EKS on Upwork](https://www.upwork.com/freelancers/~014b3520cf9e140103)
 
 ### Containerize and deploy to ECS Fargate
 
-[![Containerize and deploy to ECS Fargate cover](assets/ecs.png)](https://github.com/gamaware/aws-ecs-fargate-deploy-lab)
+[![Containerize and deploy to ECS Fargate](assets/ecs.png)](https://github.com/gamaware/aws-ecs-fargate-deploy-lab)
 
 - **Client problem:** An application that runs on one machine and needs a repeatable, reversible path to AWS.
 - **Repository:** [`aws-ecs-fargate-deploy-lab`](https://github.com/gamaware/aws-ecs-fargate-deploy-lab), lab
@@ -106,12 +106,12 @@ and the Upwork offer.
   hardening, the deployment circuit breaker and alarm-based rollback in one Terraform file.
 - **Verification scope:** App tests, mocked terraform test, Checkov, Trivy and hadolint, plus a smoke test of the image
   under ECS constraints.
-- **Upwork offer:** [Containerize and deploy to ECS
-  Fargate](https://www.upwork.com/services/product/2104080960519264487)
+- **Upwork offer:** [Containerize and deploy to ECS Fargate on
+  Upwork](https://www.upwork.com/freelancers/~014b3520cf9e140103)
 
 ### AWS landing zone for a new project
 
-[![AWS landing zone for a new project cover](assets/aws-foundation.png)](https://github.com/gamaware/terraform-aws-landing-zone-lab)
+[![AWS landing zone for a new project](assets/aws-foundation.png)](https://github.com/gamaware/terraform-aws-landing-zone-lab)
 
 - **Client problem:** A new project that starts in one AWS account, with shared administrator access and no audit trail.
 - **Repository:** [`terraform-aws-landing-zone-lab`](https://github.com/gamaware/terraform-aws-landing-zone-lab), lab
@@ -120,11 +120,12 @@ and the Upwork offer.
   tested against the requests it must deny or allow.
 - **Verification scope:** Mocked terraform test for every module, SCP evaluation tests, tflint and Checkov, with no AWS
   credentials.
-- **Upwork offer:** [AWS landing zone for a new project](https://www.upwork.com/services/product/2104109699257574353)
+- **Upwork offer:** [AWS landing zone for a new project on
+  Upwork](https://www.upwork.com/freelancers/~014b3520cf9e140103)
 
 ### DevOps and Well-Architected assessment
 
-[![DevOps and Well-Architected assessment cover](assets/wa-assessment.png)](https://github.com/gamaware/aws-well-architected-assessment-sample)
+[![DevOps and Well-Architected assessment](assets/wa-assessment.png)](https://github.com/gamaware/aws-well-architected-assessment-sample)
 
 - **Client problem:** A team that ships often, recovers slowly and cannot tell which risk to fix first.
 - **Repository:**
@@ -135,12 +136,12 @@ and the Upwork offer.
   six pillars and the DevOps lens, the ranked backlog, the roadmap and an evidence register.
 - **Verification scope:** Scripts regenerate every table from the recorded answers, and an independent test
   implementation recomputes each number.
-- **Upwork offer:** [DevOps and Well-Architected
-  assessment](https://www.upwork.com/services/product/2104073138772091857)
+- **Upwork offer:** [DevOps and Well-Architected assessment on
+  Upwork](https://www.upwork.com/freelancers/~014b3520cf9e140103)
 
 ### AWS cost optimization audit
 
-[![AWS cost optimization audit cover](assets/cost.png)](https://github.com/gamaware/aws-cost-optimization-audit-sample)
+[![AWS cost optimization audit](assets/cost.png)](https://github.com/gamaware/aws-cost-optimization-audit-sample)
 
 - **Client problem:** An AWS bill that grows every month with no owner for most of the spend.
 - **Repository:**
@@ -151,11 +152,11 @@ and the Upwork offer.
   split into quick wins and planned work, commitment sizing, tagging plan and assumptions.
 - **Verification scope:** Calculation tests derive each saving again from hours, rates and gigabytes; CI checks the
   evidence and the PDF against a fresh run.
-- **Upwork offer:** AWS cost optimization audit (listing pending on Upwork)
+- **Upwork offer:** [AWS cost optimization audit on Upwork](https://www.upwork.com/freelancers/~014b3520cf9e140103)
 
 ### Migration to AWS
 
-[![Migration to AWS cover](assets/migration.png)](https://github.com/gamaware/aws-migration-runbook-sample)
+[![Migration to AWS](assets/migration.png)](https://github.com/gamaware/aws-migration-runbook-sample)
 
 - **Client problem:** A data-center application that must move to AWS with a short outage and a way back.
 - **Repository:** [`aws-migration-runbook-sample`](https://github.com/gamaware/aws-migration-runbook-sample), fictional
@@ -165,11 +166,11 @@ and the Upwork offer.
   with checkpoints, rollback triggers, validation queries and acceptance criteria.
 - **Verification scope:** Plan and runbook rules, pytest, mocked terraform test, TFLint and Checkov, with no AWS
   credentials.
-- **Upwork offer:** [Migration to AWS](https://www.upwork.com/services/product/2104087994879419345)
+- **Upwork offer:** [Migration to AWS on Upwork](https://www.upwork.com/freelancers/~014b3520cf9e140103)
 
 ### AWS workshop and mentoring
 
-[![AWS workshop and mentoring cover](assets/workshop.png)](https://github.com/gamaware/aws-devops-workshop-labs)
+[![AWS workshop and mentoring](assets/workshop.png)](https://github.com/gamaware/aws-devops-workshop-labs)
 
 - **Client problem:** A team that needs hands-on practice with AWS, Terraform, CDK or CI/CD before it changes its own
   systems.
@@ -177,7 +178,7 @@ and the Upwork offer.
 - **Strongest artifact:** [Labs](https://github.com/gamaware/aws-devops-workshop-labs/tree/main/labs). Numbered labs,
   each with objectives, starter code, a solution, tests and reset steps.
 - **Verification scope:** Each lab's tests run against its solution with no AWS account.
-- **Upwork offer:** [AWS workshop and mentoring](https://www.upwork.com/services/product/2104117031899416674)
+- **Upwork offer:** [AWS workshop and mentoring on Upwork](https://www.upwork.com/freelancers/~014b3520cf9e140103)
 
 ### More
 
@@ -304,8 +305,8 @@ The `main` branch runs OpenSSF Scorecard.
   order. It makes no assessment of report quality.
 - Card numbers come directly from repository READMEs. Comparisons with source repositories cover only artifact
   paths and cover images.
-- Upwork blocks automated requests, so verification does not retrieve offer pages. It checks offer ID format
-  only; the cost audit offer remains pending until Upwork publishes it.
+- Upwork offer URLs are not stable and Upwork blocks automated requests, so each card links the Upwork profile and
+  verification does not retrieve Upwork pages.
 - Public repositories and a GitHub token are prerequisites for `make test-live`. The command reports differences
   without correcting them.
 
