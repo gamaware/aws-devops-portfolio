@@ -26,7 +26,7 @@ test: ## Unit tests for the catalog model, README rules, cards and checks
 check: ## Check the catalog, this README and every listed repository (offline)
 	REPOS_ROOT="$(REPOS_ROOT)" $(PY) check
 
-verify: lint test check ## Everything CI runs (offline)
+verify: lint test check ## Ruff, pytest and the catalog check; CI also runs the shared lint and security workflows
 	@echo "verify: all checks passed"
 
 readme: ## Regenerate the service cards in README.md from data/catalog.yaml
