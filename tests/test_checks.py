@@ -118,6 +118,24 @@ def test_png_size_rejects_non_png(tmp_path):
     assert checks.png_size(path) is None
 
 
+def test_png_size_rejects_truncated_png(tmp_path):
+    path = tmp_path / "truncated.png"
+    path.write_bytes((INDEX_ROOT / "docs/assets/social-preview.png").read_bytes()[:4096])
+    assert checks.png_size(path) is None
+
+
+def test_unreadable_source_cover_fails_without_traceback(workspace):
+    catalog, index, root, repo = workspace
+    (repo / "docs/assets/cover.png").write_bytes(b"not an image")
+    assert _statuses(checks.cover_results(catalog, index, root), "cannot compare") == ["FAIL"]
+
+
+def test_missing_index_readme_is_reported(tmp_path):
+    catalog = load(INDEX_ROOT / "data/catalog.yaml")
+    results = checks.index_results(catalog, tmp_path)
+    assert "FAIL" in _statuses(results, "BEGIN GENERATED")
+
+
 def test_repository_passes_its_own_index_checks():
     catalog = load(INDEX_ROOT / "data/catalog.yaml")
     assert [r for r in checks.index_results(catalog, INDEX_ROOT) if r.status != "pass"] == []

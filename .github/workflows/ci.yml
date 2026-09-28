@@ -2,10 +2,14 @@ name: ci
 
 # Thin caller: shared checks come from gamaware/.github; `make verify` is the same command contributors run locally.
 # No job receives cloud credentials or an id-token.
+# The weekly run catches a listed repository that moved or deleted its artifact or cover since the last change here.
 on:
   pull_request:
   push:
     branches: [main]
+  schedule:
+    - cron: "17 6 * * 1"
+  workflow_dispatch:
 
 permissions: {}
 
@@ -21,11 +25,9 @@ jobs:
       contents: read # checkout
     with:
       vale-paths: README.md CLAUDE.md CHANGELOG.md SECURITY.md docs .github
-      # Portfolio repositories are linked before they are public, and Upwork answers bots with 403; other links are
-      # still checked.
+      # Upwork answers bots with 403 and GitHub may rate-limit with 429; every other link must resolve.
       lychee-args: >-
-        --no-progress --max-retries 3 --accept 200..=299,403,429
-        --exclude '^https://github\.com/gamaware/' './**/*.md'
+        --no-progress --max-retries 3 --accept 200..=299,403,429 './**/*.md'
 
   lint-actions:
     name: lint-actions

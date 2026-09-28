@@ -3,7 +3,7 @@
 Each consulting service has a card that identifies the client problem, links the supporting public repository,
 points to the first artifact to review, and explains what the repository can verify without an AWS account.
 
-[![ci](https://github.com/gamaware/aws-devops-portfolio/actions/workflows/ci.yml/badge.svg)](https://github.com/gamaware/aws-devops-portfolio/actions/workflows/ci.yml)
+[![CI](https://github.com/gamaware/aws-devops-portfolio/actions/workflows/ci.yml/badge.svg)](https://github.com/gamaware/aws-devops-portfolio/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 ![Portfolio index](https://img.shields.io/badge/type-portfolio%20index-243B53)
 
@@ -13,7 +13,7 @@ points to the first artifact to review, and explains what the repository can ver
 
 - Each of the ten services links a repository that holds a report, runbook or working code as evidence beyond the
   service description.
-- A single `make verify` command in each linked repository checks its evidence offline without an AWS account
+- A single `make verify` command in each service repository checks its evidence offline without an AWS account
   or credentials.
 - Common requirements govern repository files, README section order, ADR format and descriptions. This repository
   checks compliance across the collection.
@@ -213,11 +213,12 @@ with the rule behind it.
 
 ## Architecture
 
-![Context: a reader goes from a card to its repository and offer; the catalog renders the cards and checks the repositories](docs/diagrams/portfolio-context.png)
+![Context: card to repository and offer; the catalog renders cards and checks repositories](docs/diagrams/portfolio-context.png)
 
 Service descriptions have a single source: [`data/catalog.yaml`](data/catalog.yaml). From that catalog,
 `make readme` generates this README's cards. To check their accuracy, `make verify` inspects local checkouts of
-the sibling repositories. CI first clones the public repositories into a temporary directory.
+the sibling repositories. CI first clones the public repositories into a temporary directory, and a weekly
+scheduled run repeats the check so a change in a listed repository shows up here too.
 
 A separate command, `make test-live`, compares the catalog against GitHub's live settings without modifying them.
 The diagram's draw.io source lives at
@@ -290,7 +291,7 @@ before executing `make verify`:
 | Check | Purpose |
 | --- | --- |
 | `lint-docs`: markdownlint, lychee, Vale | Prevent broken links from undermining the index |
-| `lint-actions`: actionlint, zizmor | Maintain least-privilege workflows free of injection |
+| `lint-actions`: actionlint, zizmor | Keep workflow access narrow and free of injection |
 | `secrets`: gitleaks | Keep credentials out of repository history |
 | `security`: Semgrep, Trivy | Check Python scripts and dependencies for security issues |
 | `verify`: ruff, pytest, catalog check | Confirm agreement between repository contents and cards |

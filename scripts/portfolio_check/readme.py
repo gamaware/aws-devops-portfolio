@@ -22,17 +22,29 @@ CLOSING = "License"
 BEGIN = "<!-- BEGIN GENERATED: cards from data/catalog.yaml, run `make readme` -->"
 END = "<!-- END GENERATED: cards -->"
 
-_FENCE_RE = re.compile(r"^(```|~~~)")
+# A CommonMark code fence: up to three spaces, then three or more backticks or tildes.
+_FENCE_RE = re.compile(r"^ {0,3}(`{3,}|~{3,})")
 
 
 def h2_headings(markdown: str) -> list[str]:
     """Level-two ATX headings outside fenced code blocks, in document order."""
     headings = []
-    fenced = False
+    fence = ""  # the opening fence while inside a code block
     for line in markdown.splitlines():
-        if _FENCE_RE.match(line):
-            fenced = not fenced
-        elif not fenced and line.startswith("## "):
+        match = _FENCE_RE.match(line)
+        if fence:
+            # Only a run of the same character, at least as long and with nothing after it, closes the block.
+            closes = (
+                match is not None
+                and match.group(1)[0] == fence[0]
+                and len(match.group(1)) >= len(fence)
+                and not line[match.end() :].strip()
+            )
+            if closes:
+                fence = ""
+        elif match:
+            fence = match.group(1)
+        elif line.startswith("## "):
             headings.append(line[3:].strip())
     return headings
 

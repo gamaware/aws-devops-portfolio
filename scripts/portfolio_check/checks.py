@@ -3,9 +3,10 @@
 from __future__ import annotations
 
 import re
-import struct
 from dataclasses import dataclass
 from pathlib import Path
+
+from PIL import Image
 
 from . import readme, render
 from .covers import COVER_SIZE, same_pixels
@@ -15,8 +16,6 @@ REQUIRED_FILES = ("README.md", "LICENSE", "CHANGELOG.md", "docs/assets/cover.png
 MINIMAL_FILES = ("README.md", "LICENSE")
 MIN_ADRS = 2
 PREVIEW_SIZE = (1280, 640)
-PNG_SIGNATURE = b"\x89PNG\r\n\x1a\n"
-PNG_HEADER_LEN = 24  # signature, IHDR length and type, width, height
 
 
 @dataclass(frozen=True)
@@ -38,12 +37,15 @@ def _skip(message: str) -> Result:
 
 
 def png_size(path: Path) -> tuple[int, int] | None:
-    """Width and height from the PNG header, or None when the file is not a PNG."""
-    head = path.read_bytes()[:PNG_HEADER_LEN]
-    if len(head) < PNG_HEADER_LEN or not head.startswith(PNG_SIGNATURE) or head[12:16] != b"IHDR":
+    """Width and height of a PNG that decodes completely, or None when the file is not one (wrong type, truncated)."""
+    try:
+        with Image.open(path) as image:
+            if image.format != "PNG":
+                return None
+            image.load()
+            return image.size
+    except (OSError, SyntaxError, ValueError):
         return None
-    width, height = struct.unpack(">II", head[16:24])
-    return width, height
 
 
 def adr_count(root: Path) -> int:
@@ -97,8 +99,8 @@ def cover_results(catalog: Catalog, index_root: Path, repos_root: Path) -> list[
             continue
         try:
             same = same_pixels(card, source)
-        except ValueError as error:
-            results.append(_fail(f"{name}: {error}"))
+        except (OSError, ValueError) as error:
+            results.append(_fail(f"{name}: cannot compare with the repository cover: {error}"))
         else:
             if same:
                 results.append(_pass(f"{name}: made from {service.repo.name}/docs/assets/cover.png"))
@@ -147,7 +149,8 @@ def index_results(catalog: Catalog, index_root: Path) -> list[Result]:
     errors = catalog_rule_errors(catalog)
     results = [_fail(f"catalog: {e}") for e in errors] or [_pass("catalog: names, offers, descriptions and topics")]
     results.extend(structure_results(catalog.index.name, index_root, (*MINIMAL_FILES, "CHANGELOG.md"), MIN_ADRS))
-    readme_text = (index_root / "README.md").read_text(encoding="utf-8")
+    readme_path = index_root / "README.md"
+    readme_text = readme_path.read_text(encoding="utf-8") if readme_path.is_file() else ""
     try:
         current = readme.replace_generated(readme_text, render.cards_block(catalog)) == readme_text
     except ValueError as error:
