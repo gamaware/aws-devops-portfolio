@@ -1,0 +1,43 @@
+<rect x="224" y="64" width="280" height="104"/>
+<text x="248" y="108" stroke="none" fill="#FFFFFF">data/catalog.yaml</text>
+<text x="248" y="142" stroke="none" fill="#FFFFFF" fill-opacity=".7">10 services · 11 repos</text>
+<path d="M364,168 V232 M96,232 H632"/>
+<circle cx="364" cy="232" r="6" fill="#FFFFFF"/>
+<path d="M96,232 V264 M96,336 V368"/>
+<path d="M230,232 V264 M230,336 V368"/>
+<path d="M364,232 V264 M364,336 V368"/>
+<path d="M498,232 V264 M498,336 V368"/>
+<path d="M632,232 V264 M632,336 V368"/>
+<rect x="40" y="264" width="112" height="72"/>
+<rect x="52" y="276" width="18" height="18" fill="#844FBA" stroke="#FFFFFF" stroke-width="1.5"/>
+<path d="M52,312 H140" stroke-opacity=".55"/>
+<rect x="174" y="264" width="112" height="72"/>
+<rect x="186" y="276" width="18" height="18" fill="#146C43" stroke="#FFFFFF" stroke-width="1.5"/>
+<path d="M186,312 H274" stroke-opacity=".55"/>
+<rect x="308" y="264" width="112" height="72"/>
+<rect x="320" y="276" width="18" height="18" fill="#232F3E" stroke="#FFFFFF" stroke-width="1.5"/>
+<path d="M320,312 H408" stroke-opacity=".55"/>
+<rect x="442" y="264" width="112" height="72"/>
+<rect x="454" y="276" width="18" height="18" fill="#2356C2" stroke="#FFFFFF" stroke-width="1.5"/>
+<path d="M454,312 H542" stroke-opacity=".55"/>
+<rect x="576" y="264" width="112" height="72"/>
+<rect x="588" y="276" width="18" height="18" fill="#A6400E" stroke="#FFFFFF" stroke-width="1.5"/>
+<path d="M588,312 H676" stroke-opacity=".55"/>
+<rect x="40" y="368" width="112" height="72"/>
+<rect x="52" y="380" width="18" height="18" fill="#0B5563" stroke="#FFFFFF" stroke-width="1.5"/>
+<path d="M52,416 H140" stroke-opacity=".55"/>
+<rect x="174" y="368" width="112" height="72"/>
+<rect x="186" y="380" width="18" height="18" fill="#2B2F77" stroke="#FFFFFF" stroke-width="1.5"/>
+<path d="M186,416 H274" stroke-opacity=".55"/>
+<rect x="308" y="368" width="112" height="72" stroke="#FFC34D" stroke-width="3"/>
+<rect x="320" y="380" width="18" height="18" fill="#5E4A12" stroke="#FFFFFF" stroke-width="1.5"/>
+<path d="M320,416 H408" stroke-opacity=".55"/>
+<rect x="442" y="368" width="112" height="72"/>
+<rect x="454" y="380" width="18" height="18" fill="#7B1F6A" stroke="#FFFFFF" stroke-width="1.5"/>
+<path d="M454,416 H542" stroke-opacity=".55"/>
+<rect x="576" y="368" width="112" height="72"/>
+<rect x="588" y="380" width="18" height="18" fill="#9E1C2F" stroke="#FFFFFF" stroke-width="1.5"/>
+<path d="M588,416 H676" stroke-opacity=".55"/>
+<path d="M364,440 V504" stroke="#FFC34D" stroke-dasharray="6 8"/>
+<rect x="214" y="504" width="300" height="56" rx="28" stroke="#FFC34D" stroke-width="3"/>
+<text x="364" y="539" text-anchor="middle" stroke="none" fill="#FFC34D">make verify: 0 failed</text>

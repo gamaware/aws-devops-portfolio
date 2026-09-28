@@ -1,0 +1,24 @@
+# Secrets
+.env
+.env.local
+*.pem
+*.key
+credentials.json
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+.venv/
+
+# Live check output (never committed)
+live-output/
+
+# Tools
+.firecrawl/
+*.sarif
+.DS_Store
+
+# Vale packages (downloaded by vale sync)
+styles/
