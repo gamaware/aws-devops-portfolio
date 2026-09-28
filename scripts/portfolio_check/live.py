@@ -3,9 +3,10 @@
 from __future__ import annotations
 
 import http
-import http.client
 import json
 import os
+import urllib.error
+import urllib.request
 
 from .checks import Result
 from .model import Catalog, Repo
@@ -26,15 +27,15 @@ def fetch(owner: str, name: str, token: str) -> dict | None:
     """One repository's public settings from the GitHub GraphQL API, or None when it does not exist."""
     body = json.dumps({"query": QUERY, "variables": {"owner": owner, "name": name}})
     headers = {"Authorization": f"bearer {token}", "Content-Type": "application/json", "User-Agent": "portfolio-check"}
-    connection = http.client.HTTPSConnection("api.github.com", timeout=30)
+    opener = urllib.request.build_opener()
+    opener.addheaders = list(headers.items())
     try:
-        connection.request("POST", "/graphql", body=body, headers=headers)
-        response = connection.getresponse()
-        if response.status != http.HTTPStatus.OK:
-            raise RuntimeError(f"GitHub API returned HTTP {response.status} for {owner}/{name}")
-        payload = json.load(response)
-    finally:
-        connection.close()
+        with opener.open("https://api.github.com/graphql", data=body.encode(), timeout=30) as response:
+            if response.status != http.HTTPStatus.OK:
+                raise RuntimeError(f"GitHub API returned HTTP {response.status} for {owner}/{name}")
+            payload = json.load(response)
+    except urllib.error.HTTPError as error:
+        raise RuntimeError(f"GitHub API returned HTTP {error.code} for {owner}/{name}") from error
     errors = payload.get("errors") or []
     if any(e.get("type") == "NOT_FOUND" for e in errors):
         return None
