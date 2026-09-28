@@ -11,6 +11,8 @@ dependencies = ["pillow==12.3.0", "pyyaml==6.0.3"]
 dev = ["pytest==9.1.1", "ruff==0.16.9"]
 
 [tool.uv]
+exclude-newer = "7 days"
+exclude-newer-package = { ruff = false }
 package = false
 default-groups = ["dev"]
 
