@@ -1,0 +1,30 @@
+language: en-US
+reviews:
+  auto_review:
+    enabled: true
+    drafts: false
+  path_instructions:
+    - path: "data/catalog.yaml"
+      instructions: >-
+        The single source for every service card. Every offer links to the Upwork profile in profile_url, repo
+        names are GitHub names, local names are sibling folder names. Descriptions must follow "Demonstrates
+        <capability> through <artifact>; verified <scope>." Every change needs `make readme` so the generated
+        cards in README.md stay in step.
+    - path: "scripts/**"
+      instructions: >-
+        The checks mirror STANDARD rules documented in docs/checks.md and the ADRs. Flag any rule change that is
+        not reflected there or not covered by a test in tests/. The offline check must never call the network.
+    - path: "README.md"
+      instructions: >-
+        Text between BEGIN GENERATED and END GENERATED markers comes from data/catalog.yaml and must not be edited
+        by hand. No marketing adjectives, no claims of production use or measured client results.
+    - path: ".github/workflows/**"
+      instructions: >-
+        permissions: {} at the top and per-job grants, actions pinned to full SHAs with a version comment,
+        no pull_request_target, event data passed through env, no cloud credentials or id-token.
+    - path: "**/*.sh"
+      instructions: >-
+        Must pass shellcheck and shellharden. Quote every variable; use arrays for word splitting.
+    - path: "**/*.md"
+      instructions: >-
+        Line length 120 (tables exempt), English, dateless, no marketing adjectives.

@@ -1,0 +1,204 @@
+# Single source for the portfolio index.
+# `make readme` renders the service cards in README.md from this file; `make verify` checks it against the sibling
+# repositories (see docs/checks.md). Repository names are GitHub names; `local` is the sibling folder name when it
+# differs. Every offer links to the Upwork profile in `profile_url`; offer URLs are not stable.
+
+owner: gamaware
+profile_url: https://www.upwork.com/freelancers/~014b3520cf9e140103
+
+index:
+  name: aws-devops-portfolio
+  kind: index
+  description: >-
+    Demonstrates an AWS and DevOps consulting portfolio through one card per service, each linked to its repository
+    and Upwork offer; verified offline by a catalog check across every repository.
+  topics: [aws, devops, portfolio, index, terraform, github-actions, consulting]
+
+services:
+  - id: terraform-audit
+    offer: Terraform on AWS audit and fix
+    problem: >-
+      Terraform nobody trusts: local state, copy-pasted environments and plans that could delete production data.
+    repo:
+      name: terraform-aws-rescue-lab
+      kind: lab
+      description: >-
+        Demonstrates a Terraform rescue through a ranked diagnosis, fix pull requests and a zero-destroy state
+        migration; verified offline with Checkov, tflint and terraform test.
+      topics: [aws, devops, portfolio, lab, terraform, infrastructure-as-code, checkov, tflint, state-migration]
+    artifact:
+      label: Diagnosis report
+      path: report/REPORT.md
+      summary: 10 findings ranked by risk, each with evidence and a fix, plus the repair order and a state migration.
+    verification: >-
+      Checkov and tflint counts before and after, terraform test with a mocked provider and plan-gate fixtures, all
+      offline; `make demo` replays the state migration against a local emulator.
+
+  - id: cicd
+    offer: CI/CD pipeline to AWS
+    problem: Long-lived AWS keys in CI, and deploys that can ship an image nobody scanned.
+    repo:
+      name: github-actions-aws-oidc-lab
+      kind: lab
+      description: >-
+        Demonstrates keyless CI/CD to Amazon ECS through a GitHub Actions OIDC pipeline with security gates; verified
+        offline with policy tests and mocked Terraform.
+      topics: [aws, devops, portfolio, lab, github-actions, oidc, amazon-ecs, iam, trivy, gitlab-ci]
+    artifact:
+      label: Deploy workflow
+      path: .github/workflows/deploy.yml
+      summary: Build once, Trivy gate, OIDC role, push by digest, deploy, then fail the run if ECS rolled back.
+    verification: >-
+      pytest policy tests, mocked terraform test, tflint, Checkov, actionlint and zizmor, with no AWS credentials.
+
+  - id: iam-review
+    offer: AWS security and IAM review
+    problem: An account that grew without an access model, with administrator CI roles, root keys and public buckets.
+    repo:
+      name: aws-iam-security-review-sample
+      kind: sample
+      description: >-
+        Demonstrates an AWS security and IAM review through a ranked findings report and a SOC 2 control-to-evidence
+        map; verified offline on a fictional account export.
+      topics: [aws, devops, portfolio, sample-deliverable, iam, least-privilege, security-review, soc2, checkov]
+    artifact:
+      label: Security review report
+      path: report/REPORT.md
+      summary: 9 ranked findings with evidence, impact and policy rewrites, then quick wins and a baseline SCP.
+    verification: >-
+      17 offline checks and Checkov run on the account before and after the fixes; CI regenerates the evidence and
+      diffs it.
+
+  - id: eks
+    offer: Kubernetes on Amazon EKS
+    problem: A team that needs Kubernetes on AWS without a hand-built cluster or a branch per environment.
+    repo:
+      name: terraform-aws-eks-gitops-lab
+      kind: lab
+      description: >-
+        Demonstrates Amazon EKS delivery through Terraform modules, a Helm chart and Argo CD folders per environment;
+        verified offline with mocked Terraform and Helm render tests.
+      topics: [aws, devops, portfolio, lab, eks, kubernetes, terraform, helm, argo-cd, gitops]
+    artifact:
+      label: EKS module
+      path: infra/terraform/modules/eks/
+      summary: Cluster, access entries, add-ons and Pod Identity per controller, with mocked terraform test runs.
+    verification: >-
+      Mocked terraform test, Helm lint and render assertions, and kubeconform schema checks; helm test needs a cluster
+      and runs only live.
+
+  - id: ecs
+    offer: Containerize and deploy to ECS Fargate
+    problem: An application that runs on one machine and needs a repeatable, reversible path to AWS.
+    repo:
+      name: aws-ecs-fargate-deploy-lab
+      kind: lab
+      description: >-
+        Demonstrates containerizing an API and deploying it to Amazon ECS on Fargate through Terraform and a
+        build-once pipeline; verified offline with app, image and mocked Terraform tests.
+      topics: [aws, devops, portfolio, lab, amazon-ecs, fargate, docker, terraform, github-actions]
+    artifact:
+      label: ECS service definition
+      path: infra/terraform/service/ecs.tf
+      summary: Task hardening, the deployment circuit breaker and alarm-based rollback in one Terraform file.
+    verification: >-
+      App tests, mocked terraform test, Checkov, Trivy and hadolint, plus a smoke test of the image under ECS
+      constraints.
+
+  - id: aws-foundation
+    offer: AWS landing zone for a new project
+    problem: A new project that starts in one AWS account, with shared administrator access and no audit trail.
+    repo:
+      name: terraform-aws-landing-zone-lab
+      kind: lab
+      description: >-
+        Demonstrates a multi-account AWS foundation through Terraform, AWS Organizations and tested service control
+        policies; verified offline with mocked Terraform and policy tests.
+      topics: [aws, devops, portfolio, lab, terraform, landing-zone, aws-organizations, scp, iam-identity-center]
+    artifact:
+      label: Service control policies
+      path: policies/scp/
+      summary: The guardrails, each tested against the requests it must deny or allow.
+    verification: >-
+      Mocked terraform test for every module, SCP evaluation tests, tflint and Checkov, with no AWS credentials.
+
+  - id: wa-assessment
+    offer: DevOps and Well-Architected assessment
+    problem: A team that ships often, recovers slowly and cannot tell which risk to fix first.
+    repo:
+      name: aws-well-architected-assessment-sample
+      kind: sample
+      description: >-
+        Demonstrates an AWS Well-Architected and DevOps assessment through a risk-rated backlog and a 30/60/90-day
+        roadmap; verified offline by recomputing every number from the data.
+      topics: [aws, devops, portfolio, sample-deliverable, well-architected, devops-assessment, risk-assessment]
+    artifact:
+      label: Assessment report
+      path: report/REPORT.md
+      summary: Scores across six pillars and the DevOps lens, the ranked backlog, the roadmap and an evidence register.
+    verification: >-
+      Scripts regenerate every table from the recorded answers, and an independent test implementation recomputes
+      each number.
+
+  - id: cost
+    offer: AWS cost optimization audit
+    problem: An AWS bill that grows every month with no owner for most of the spend.
+    repo:
+      name: aws-cost-optimization-audit-sample
+      kind: sample
+      description: >-
+        Demonstrates an AWS cost optimization audit through ranked savings with stated assumptions; verified offline
+        by recalculating each saving from synthetic billing data.
+      topics: [aws, devops, portfolio, sample-deliverable, finops, cost-optimization, savings-plans, rightsizing]
+    artifact:
+      label: Cost audit report
+      path: report/REPORT.md
+      summary: Ranked savings split into quick wins and planned work, commitment sizing, tagging plan and assumptions.
+    verification: >-
+      Calculation tests derive each saving again from hours, rates and gigabytes; CI checks the evidence and the PDF
+      against a fresh run.
+
+  - id: migration
+    offer: Migration to AWS
+    problem: A data-center application that must move to AWS with a short outage and a way back.
+    repo:
+      name: aws-migration-runbook-sample
+      kind: sample
+      description: >-
+        Demonstrates an AWS migration through a wave plan, AWS DMS tasks and a cutover runbook with rollback;
+        verified offline by rules that keep the plan, Terraform and runbook in agreement.
+      topics: [aws, devops, portfolio, sample-deliverable, migration, aws-dms, runbook, terraform, amazon-rds]
+    artifact:
+      label: Wave 1 cutover runbook
+      path: runbooks/wave-1-cutover.md
+      summary: Timed steps with checkpoints, rollback triggers, validation queries and acceptance criteria.
+    verification: >-
+      Plan and runbook rules, pytest, mocked terraform test, TFLint and Checkov, with no AWS credentials.
+
+  - id: workshop
+    offer: AWS workshop and mentoring
+    problem: A team that needs hands-on practice with AWS, Terraform, CDK or CI/CD before it changes its own systems.
+    repo:
+      name: aws-devops-workshop-labs
+      kind: labs
+      description: >-
+        Demonstrates hands-on AWS and DevOps teaching through numbered labs with starter code, solutions and tests;
+        verified offline by running each lab's tests against its solution.
+      topics: [aws, devops, portfolio, lab, workshop, terraform, aws-cdk, github-actions, training]
+    artifact:
+      label: Labs
+      path: labs/
+      summary: Numbered labs, each with objectives, starter code, a solution, tests and reset steps.
+    verification: >-
+      Each lab's tests run against its solution with no AWS account.
+
+more:
+  - repo:
+      name: cdk-python-nag-pipeline-lab
+      kind: lab
+      standard: false
+      description: >-
+        Demonstrates a cdk-nag security gate through a self-mutating AWS CDK Pipelines app in Python; verified offline
+        with pytest and cdk synth.
+      topics: [aws, devops, portfolio, lab, aws-cdk, python, cdk-nag, codepipeline]
+    summary: An AWS CDK v2 app in Python whose pipeline stops on any unacknowledged cdk-nag finding during synth.
