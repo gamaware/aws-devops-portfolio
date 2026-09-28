@@ -21,7 +21,6 @@ services:
       Terraform nobody trusts: local state, copy-pasted environments and plans that could delete production data.
     repo:
       name: terraform-aws-rescue-lab
-      local: terraform-aws-baseline-lab
       kind: lab
       description: >-
         Demonstrates a Terraform rescue through a ranked diagnosis, fix pull requests and a zero-destroy state
