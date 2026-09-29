@@ -11,8 +11,8 @@ points to the first artifact to review, and explains what the repository can ver
 
 ## What this proves
 
-- Each of the ten services links a repository that holds a report, runbook or working code as evidence beyond the
-  service description.
+- Each of the fourteen services links a repository that holds a report, runbook or working code as evidence beyond
+  the service description.
 - A single `make verify` command in each service repository checks its evidence offline without an AWS account
   or credentials.
 - Common requirements govern repository files, README section order, ADR format and descriptions. This repository
@@ -39,6 +39,10 @@ and the service on Upwork.
 | [AWS cost optimization audit](#aws-cost-optimization-audit) | [`aws-cost-optimization-audit-sample`](https://github.com/gamaware/aws-cost-optimization-audit-sample) | [Cost audit report](https://github.com/gamaware/aws-cost-optimization-audit-sample/blob/main/report/REPORT.md) |
 | [Migration to AWS](#migration-to-aws) | [`aws-migration-runbook-sample`](https://github.com/gamaware/aws-migration-runbook-sample) | [Wave 1 cutover runbook](https://github.com/gamaware/aws-migration-runbook-sample/blob/main/runbooks/wave-1-cutover.md) |
 | [AWS workshop and mentoring](#aws-workshop-and-mentoring) | [`aws-devops-workshop-labs`](https://github.com/gamaware/aws-devops-workshop-labs) | [Labs](https://github.com/gamaware/aws-devops-workshop-labs/tree/main/labs) |
+| [RAG on Amazon Bedrock](#rag-on-amazon-bedrock) | [`terraform-aws-bedrock-rag-lab`](https://github.com/gamaware/terraform-aws-bedrock-rag-lab) | [Evaluation report](https://github.com/gamaware/terraform-aws-bedrock-rag-lab/blob/main/report/REPORT.md) |
+| [AI agents on Amazon Bedrock AgentCore](#ai-agents-on-amazon-bedrock-agentcore) | [`terraform-aws-agentcore-agent-lab`](https://github.com/gamaware/terraform-aws-agentcore-agent-lab) | [Cedar policies](https://github.com/gamaware/terraform-aws-agentcore-agent-lab/tree/main/policy) |
+| [GenAI release pipeline and evaluations](#genai-release-pipeline-and-evaluations) | [`bedrock-genaiops-release-gate-lab`](https://github.com/gamaware/bedrock-genaiops-release-gate-lab) | [Release gate report](https://github.com/gamaware/bedrock-genaiops-release-gate-lab/blob/main/report/REPORT.md) |
+| [GenAI architecture and cost review](#genai-architecture-and-cost-review) | [`aws-genai-architecture-review-sample`](https://github.com/gamaware/aws-genai-architecture-review-sample) | [Review report](https://github.com/gamaware/aws-genai-architecture-review-sample/blob/main/report/REPORT.md) |
 
 ### Terraform on AWS audit and fix
 
@@ -180,6 +184,69 @@ and the service on Upwork.
 - **Verification scope:** Each lab's tests run against its solution with no AWS account.
 - **Upwork offer:** [AWS workshop and mentoring on Upwork](https://www.upwork.com/freelancers/~014b3520cf9e140103)
 
+### RAG on Amazon Bedrock
+
+[![RAG on Amazon Bedrock](assets/rag.png)](https://github.com/gamaware/terraform-aws-bedrock-rag-lab)
+
+- **Client problem:** Staff answer policy questions by searching hundreds of documents by hand, and answers are slow and
+  inconsistent.
+- **Repository:** [`terraform-aws-bedrock-rag-lab`](https://github.com/gamaware/terraform-aws-bedrock-rag-lab), lab
+- **Strongest artifact:** [Evaluation
+  report](https://github.com/gamaware/terraform-aws-bedrock-rag-lab/blob/main/report/REPORT.md). Evaluation results, the
+  chunking decision, guardrail evidence, cost per question and risks.
+- **Verification scope:** Retrieval and answer evaluations against a golden set with a stubbed Bedrock client, pytest,
+  mocked terraform test, tflint, Checkov and Semgrep, with no AWS credentials.
+- **Upwork offer:** [RAG on Amazon Bedrock on Upwork](https://www.upwork.com/freelancers/~014b3520cf9e140103)
+
+### AI agents on Amazon Bedrock AgentCore
+
+[![AI agents on Amazon Bedrock AgentCore](assets/agentcore.png)](https://github.com/gamaware/terraform-aws-agentcore-agent-lab)
+
+- **Client problem:** An assistant that must act on orders and returns, not just answer, with every action authorized
+  per person.
+- **Repository:** [`terraform-aws-agentcore-agent-lab`](https://github.com/gamaware/terraform-aws-agentcore-agent-lab),
+  lab
+- **Strongest artifact:** [Cedar
+  policies](https://github.com/gamaware/terraform-aws-agentcore-agent-lab/tree/main/policy). The policies the gateway
+  enforces, tested against an allow and deny table.
+- **Verification scope:** Scripted agent sessions, including a model that misbehaves on purpose, Cedar policy tests,
+  mocked terraform test and an image smoke test, with no AWS credentials.
+- **Upwork offer:** [AI agents on Amazon Bedrock AgentCore on
+  Upwork](https://www.upwork.com/freelancers/~014b3520cf9e140103)
+
+### GenAI release pipeline and evaluations
+
+[![GenAI release pipeline and evaluations](assets/genaiops.png)](https://github.com/gamaware/bedrock-genaiops-release-gate-lab)
+
+- **Client problem:** Prompt, model and guardrail changes that can quietly make answers worse, weaken safety or raise
+  the bill.
+- **Repository:** [`bedrock-genaiops-release-gate-lab`](https://github.com/gamaware/bedrock-genaiops-release-gate-lab),
+  lab
+- **Strongest artifact:** [Release gate
+  report](https://github.com/gamaware/bedrock-genaiops-release-gate-lab/blob/main/report/REPORT.md). What the gate
+  decided for each change, cost per request and the risks it leaves.
+- **Verification scope:** The gate replays recorded runs for six changes, with pytest, mocked terraform test, actionlint
+  and zizmor, and no AWS credentials.
+- **Upwork offer:** [GenAI release pipeline and evaluations on
+  Upwork](https://www.upwork.com/freelancers/~014b3520cf9e140103)
+
+### GenAI architecture and cost review
+
+[![GenAI architecture and cost review](assets/genai-review.png)](https://github.com/gamaware/aws-genai-architecture-review-sample)
+
+- **Client problem:** A generative AI workload on Amazon Bedrock that works, but costs too much and leaks risk nobody
+  ranked.
+- **Repository:**
+  [`aws-genai-architecture-review-sample`](https://github.com/gamaware/aws-genai-architecture-review-sample), fictional
+  sample deliverable
+- **Strongest artifact:** [Review
+  report](https://github.com/gamaware/aws-genai-architecture-review-sample/blob/main/report/REPORT.md). Findings ranked
+  by risk, each with the code that fixes it, and a monthly cost model before and after.
+- **Verification scope:** Scripted checks recompute each finding and the cost model from the exports; mocked terraform
+  test covers the fixes, all offline.
+- **Upwork offer:** [GenAI architecture and cost review on
+  Upwork](https://www.upwork.com/freelancers/~014b3520cf9e140103)
+
 ### More
 
 - [`cdk-python-nag-pipeline-lab`](https://github.com/gamaware/cdk-python-nag-pipeline-lab), lab: An AWS CDK v2 app in
@@ -190,7 +257,7 @@ and the service on Upwork.
 ## Scenario and acceptance criteria
 
 A buyer or CTO needs to assess the work supporting a service in a few minutes, while an engineer needs to run it
-before a call. Both depend on this index keeping its information accurate as eleven repositories evolve on
+before a call. Both depend on this index keeping its information accurate as fifteen repositories evolve on
 separate schedules.
 
 Each repository in this portfolio is a separate engagement with Harbor Goods, a fictional mid-size retailer. Details

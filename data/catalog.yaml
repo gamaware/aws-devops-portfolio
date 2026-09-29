@@ -192,6 +192,81 @@ services:
     verification: >-
       Each lab's tests run against its solution with no AWS account.
 
+  - id: rag
+    offer: RAG on Amazon Bedrock
+    problem: >-
+      Staff answer policy questions by searching hundreds of documents by hand, and answers are slow and inconsistent.
+    repo:
+      name: terraform-aws-bedrock-rag-lab
+      kind: lab
+      description: >-
+        Demonstrates a private RAG API on Amazon Bedrock through Knowledge Bases, S3 Vectors and a guardrail in
+        Terraform; verified offline with retrieval and answer evaluations and mocked Terraform tests.
+      topics: [aws, devops, portfolio, lab, bedrock, amazon-bedrock, genai, rag, knowledge-bases, terraform]
+    artifact:
+      label: Evaluation report
+      path: report/REPORT.md
+      summary: Evaluation results, the chunking decision, guardrail evidence, cost per question and risks.
+    verification: >-
+      Retrieval and answer evaluations against a golden set with a stubbed Bedrock client, pytest, mocked terraform
+      test, tflint, Checkov and Semgrep, with no AWS credentials.
+
+  - id: agentcore
+    offer: AI agents on Amazon Bedrock AgentCore
+    problem: >-
+      An assistant that must act on orders and returns, not just answer, with every action authorized per person.
+    repo:
+      name: terraform-aws-agentcore-agent-lab
+      kind: lab
+      description: >-
+        Demonstrates an AI agent on Amazon Bedrock AgentCore through Cedar policies that authorize every tool call per
+        staff member, in Terraform; verified offline with scripted agent sessions, policy tests and mocked Terraform.
+      topics: [aws, devops, portfolio, lab, bedrock, amazon-bedrock, bedrock-agentcore, ai-agents, genai, terraform]
+    artifact:
+      label: Cedar policies
+      path: policy/
+      summary: The policies the gateway enforces, tested against an allow and deny table.
+    verification: >-
+      Scripted agent sessions, including a model that misbehaves on purpose, Cedar policy tests, mocked terraform
+      test and an image smoke test, with no AWS credentials.
+
+  - id: genaiops
+    offer: GenAI release pipeline and evaluations
+    problem: >-
+      Prompt, model and guardrail changes that can quietly make answers worse, weaken safety or raise the bill.
+    repo:
+      name: bedrock-genaiops-release-gate-lab
+      kind: lab
+      description: >-
+        Demonstrates a GenAI release gate on Amazon Bedrock through quality, red-team and cost checks in GitHub
+        Actions; verified offline against recorded evaluation runs and mocked Terraform.
+      topics: [aws, devops, portfolio, lab, bedrock, amazon-bedrock, genai, genaiops, llm-evaluation, github-actions]
+    artifact:
+      label: Release gate report
+      path: report/REPORT.md
+      summary: What the gate decided for each change, cost per request and the risks it leaves.
+    verification: >-
+      The gate replays recorded runs for six changes, with pytest, mocked terraform test, actionlint and zizmor, and
+      no AWS credentials.
+
+  - id: genai-review
+    offer: GenAI architecture and cost review
+    problem: A generative AI workload on Amazon Bedrock that works, but costs too much and leaks risk nobody ranked.
+    repo:
+      name: aws-genai-architecture-review-sample
+      kind: sample
+      description: >-
+        Demonstrates a GenAI architecture and cost review through findings mapped to the Well-Architected Generative
+        AI Lens, each with its fix; verified offline by recomputing every number from the data.
+      topics: [aws, devops, portfolio, sample-deliverable, bedrock, amazon-bedrock, genai, well-architected, finops]
+    artifact:
+      label: Review report
+      path: report/REPORT.md
+      summary: Findings ranked by risk, each with the code that fixes it, and a monthly cost model before and after.
+    verification: >-
+      Scripted checks recompute each finding and the cost model from the exports; mocked terraform test covers the
+      fixes, all offline.
+
 more:
   - repo:
       name: cdk-python-nag-pipeline-lab

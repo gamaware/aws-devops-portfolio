@@ -8,7 +8,7 @@ from portfolio_check.render import anchor
 def test_repository_catalog_passes_every_rule():
     catalog = load(INDEX_ROOT / "data/catalog.yaml")
     assert catalog_rule_errors(catalog) == []
-    assert len(catalog.services) == 10
+    assert len(catalog.services) == 14
 
 
 def test_minimal_catalog_parses_with_defaults(raw):
