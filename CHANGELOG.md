@@ -7,6 +7,8 @@ and releases use [Semantic Versioning](https://semver.org/) for the catalog sche
 
 ### Added
 
+- Four generative AI services in the catalog and cards: RAG on Amazon Bedrock, AI agents on Amazon Bedrock
+  AgentCore, GenAI release pipeline and evaluations, and GenAI architecture and cost review.
 - `data/catalog.yaml` with the ten services, their Upwork offers and repositories, and one extra repository.
 - `scripts/portfolio_check`: catalog validation, README section-order rules, card rendering, the offline check
   across every listed repository, cover copies and a read-only GitHub comparison.
