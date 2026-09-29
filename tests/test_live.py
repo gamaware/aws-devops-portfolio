@@ -46,8 +46,8 @@ def test_each_difference_fails(repo, overrides, fragment):
 
 
 def test_extra_repository_checks_visibility_only(raw):
-    raw["services"][0]["repo"]["standard"] = False
-    repo = parse(raw).services[0].repo
+    raw["more"] = [{"repo": {**raw["services"][0]["repo"], "standard": False}, "summary": "Extra."}]
+    repo = parse(raw).more[0].repo
     results = live.compare(repo, _live(description="Old text.", usesCustomOpenGraphImage=False))
     assert [r.status for r in results] == ["pass", "skip"]
 

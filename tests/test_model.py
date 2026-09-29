@@ -1,7 +1,7 @@
 import pytest
 
 from conftest import INDEX_ROOT
-from portfolio_check.model import CatalogError, catalog_rule_errors, load, parse, repo_rule_errors
+from portfolio_check.model import CatalogError, catalog_rule_errors, load, loads, parse, repo_rule_errors
 from portfolio_check.render import anchor
 
 
@@ -93,6 +93,9 @@ def test_artifact_path_stays_inside_the_repository(raw, path):
         (lambda r: r["services"][0]["repo"].update(local="../outside"), "'local' must be a folder name"),
         (lambda r: r["services"][0].update(id="../x"), "id '../x' must be lowercase"),
         (lambda r: r["services"][0]["repo"].update(name="Example_Lab"), "repository name 'Example_Lab'"),
+        (lambda r: r.update(more=None), "'more' must be a list"),
+        (lambda r: r.update(more=False), "'more' must be a list"),
+        (lambda r: r["services"][0]["repo"].update(standard=False), "only for repositories under 'more'"),
     ],
 )
 def test_structural_errors_raise(raw, mutate, message):
@@ -116,3 +119,20 @@ def test_anchor_matches_github(title, expected):
 def test_profile_url_is_checked(raw):
     raw["profile_url"] = "https://example.com/profile"
     assert "profile_url must be an Upwork freelancer profile" in catalog_rule_errors(parse(raw))
+
+
+def test_duplicate_yaml_keys_are_rejected():
+    text = "services:\n  - id: audit\n    artifact:\n      path: a.md\n      path: b.md\n"
+    with pytest.raises(CatalogError, match="duplicate keys 'path' \\(line 5\\)"):
+        loads(text)
+
+
+def test_yaml_keys_that_construct_equal_are_rejected():
+    text = "services:\n  - id: audit\n    true: 1\n    True: 2\n"
+    with pytest.raises(CatalogError, match="duplicate keys 'True' \\(line 4\\)"):
+        loads(text)
+
+
+def test_catalog_without_more_parses(raw):
+    raw.pop("more")
+    assert parse(raw).more == ()
