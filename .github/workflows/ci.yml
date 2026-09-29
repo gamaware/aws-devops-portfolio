@@ -2,10 +2,14 @@ name: ci
 
 # Thin caller: shared checks come from gamaware/.github; `make verify` is the same command contributors run locally.
 # No job receives cloud credentials or an id-token.
+# The weekly run catches a listed repository that moved or deleted its artifact or cover since the last change here.
 on:
   pull_request:
   push:
     branches: [main]
+  schedule:
+    - cron: "17 6 * * 1"
+  workflow_dispatch:
 
 permissions: {}
 
@@ -16,32 +20,32 @@ concurrency:
 jobs:
   lint-docs:
     name: lint-docs
-    uses: gamaware/.github/.github/workflows/lint-docs.yml@1e2fe2d99f7772ad59b896f332557457ebcbdde9 # gamaware/.github initial workflows
+    uses: gamaware/.github/.github/workflows/lint-docs.yml@01271d87e89c5f893e1e3a92eb6ba4d484286514 # gamaware/.github main (#2)
     permissions:
       contents: read # checkout
     with:
       vale-paths: README.md CLAUDE.md CHANGELOG.md SECURITY.md docs .github
-      # Portfolio repositories are linked before they are public, and Upwork answers bots with 403; other links are
-      # still checked.
+      # Upwork answers bots with 403, so its profile URLs are excluded; GitHub may rate-limit with 429.
+      # Every other link must resolve with a 2xx status.
       lychee-args: >-
-        --no-progress --max-retries 3 --accept 200..=299,403,429
-        --exclude '^https://github\.com/gamaware/' './**/*.md'
+        --no-progress --max-retries 3 --accept 200..=299,429
+        --exclude '^https://www\.upwork\.com/freelancers/' './**/*.md'
 
   lint-actions:
     name: lint-actions
-    uses: gamaware/.github/.github/workflows/lint-actions.yml@1e2fe2d99f7772ad59b896f332557457ebcbdde9 # gamaware/.github initial workflows
+    uses: gamaware/.github/.github/workflows/lint-actions.yml@01271d87e89c5f893e1e3a92eb6ba4d484286514 # gamaware/.github main (#2)
     permissions:
       contents: read # checkout
 
   secrets:
     name: secrets
-    uses: gamaware/.github/.github/workflows/secrets.yml@1e2fe2d99f7772ad59b896f332557457ebcbdde9 # gamaware/.github initial workflows
+    uses: gamaware/.github/.github/workflows/secrets.yml@01271d87e89c5f893e1e3a92eb6ba4d484286514 # gamaware/.github main (#2)
     permissions:
       contents: read # checkout
 
   security:
     name: security
-    uses: gamaware/.github/.github/workflows/security.yml@1e2fe2d99f7772ad59b896f332557457ebcbdde9 # gamaware/.github initial workflows
+    uses: gamaware/.github/.github/workflows/security.yml@01271d87e89c5f893e1e3a92eb6ba4d484286514 # gamaware/.github main (#2)
     permissions:
       contents: read # checkout
 

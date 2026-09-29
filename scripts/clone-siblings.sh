@@ -5,10 +5,12 @@
 set -euo pipefail
 
 : "${REPOS_ROOT:?set REPOS_ROOT to the folder that receives the clones}"
-OWNER="${OWNER:-gamaware}"
+catalog_cmd=(env PYTHONPATH=scripts uv run --locked python -m portfolio_check)
+# The owner comes from data/catalog.yaml unless OWNER overrides it.
+OWNER="${OWNER:-$("${catalog_cmd[@]}" owner)}"
 mkdir -p "$REPOS_ROOT"
 
-PYTHONPATH=scripts uv run --locked python -m portfolio_check siblings | while read -r name local; do
+"${catalog_cmd[@]}" siblings | while read -r name local; do
   target="$REPOS_ROOT/$local"
   if [[ -d "$target" ]]; then
     echo "exists  $local"

@@ -18,6 +18,22 @@ def test_headings_inside_code_fences_are_ignored():
     assert readme.section_order_errors(text) == []
 
 
+def test_longer_fence_keeps_inner_backticks_inside_the_block():
+    block = "````markdown\n```bash\nmake verify\n```\n## not a heading\n````"
+    text = STANDARD_README.replace("## Architecture", f"## Architecture\n\n{block}")
+    assert readme.section_order_errors(text) == []
+
+
+def test_tilde_fence_is_not_closed_by_backticks():
+    text = STANDARD_README.replace("## Architecture", "## Architecture\n\n~~~\n```\n## not a heading\n~~~")
+    assert readme.section_order_errors(text) == []
+
+
+def test_backtick_line_with_backtick_info_string_is_not_a_fence():
+    text = STANDARD_README.replace("## Architecture", "``` not`a fence\n\n## Architecture")
+    assert readme.section_order_errors(text) == []
+
+
 def test_wrong_opener_is_reported():
     text = STANDARD_README.replace("What this proves", "Overview")
     assert readme.section_order_errors(text) == [

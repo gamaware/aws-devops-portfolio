@@ -1,4 +1,4 @@
-"""Command line: check, readme, covers and live (python -m portfolio_check <command>)."""
+"""Command line: check, readme, covers, siblings, owner and live (python -m portfolio_check <command>)."""
 
 from __future__ import annotations
 
@@ -51,6 +51,7 @@ def main(argv: list[str] | None = None) -> int:
     covers = commands.add_parser("covers", help="copy each repository cover into assets/ at card size")
     covers.add_argument("--source", action="append", default=[], metavar="ID=PATH", help="cover to use for a service")
     commands.add_parser("siblings", help="print '<GitHub name> <local folder>' for every listed repository")
+    commands.add_parser("owner", help="print the GitHub owner of the listed repositories")
     commands.add_parser("live", help="compare the catalog with the live GitHub repositories (network, read-only)")
     args = parser.parse_args(argv)
 
@@ -62,9 +63,9 @@ def main(argv: list[str] | None = None) -> int:
 
     if args.command == "check":
         return _report(checks.run(catalog, INDEX_ROOT, args.repos_root.resolve()))
-    if args.command == "siblings":
-        for repo in catalog.all_repos()[1:]:
-            print(repo.name, repo.local)
+    if args.command in ("owner", "siblings"):
+        siblings = [f"{repo.name} {repo.local}" for repo in catalog.all_repos()[1:]]
+        print(catalog.owner if args.command == "owner" else "\n".join(siblings))
         return 0
     if args.command == "readme":
         path = INDEX_ROOT / "README.md"

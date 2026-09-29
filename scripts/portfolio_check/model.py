@@ -85,7 +85,7 @@ def _text(node: dict, key: str, where: str) -> str:
     return " ".join(value.split())
 
 
-def _repo(node: object, where: str) -> Repo:
+def _repo(node: object, where: str, *, extra: bool = False) -> Repo:
     if not isinstance(node, dict):
         raise CatalogError(f"{where}: 'repo' must be a mapping")
     name = _text(node, "name", where)
@@ -103,6 +103,8 @@ def _repo(node: object, where: str) -> Repo:
     standard = node.get("standard", True)
     if not isinstance(standard, bool):
         raise CatalogError(f"{where}: 'standard' must be true or false")
+    if not standard and not extra:
+        raise CatalogError(f"{where}: 'standard: false' is allowed only for repositories under 'more'")
     local = node.get("local", name)
     if not isinstance(local, str) or not REPO_NAME_RE.match(local):
         raise CatalogError(f"{where}: 'local' must be a folder name of lowercase words joined by hyphens")
@@ -149,14 +151,15 @@ def parse(raw: object) -> Catalog:
     services = raw.get("services")
     if not isinstance(services, list) or not services:
         raise CatalogError("catalog: 'services' must be a non-empty list")
-    more = raw.get("more") or []
+    more = raw.get("more", [])
     if not isinstance(more, list):
         raise CatalogError("catalog: 'more' must be a list")
     extras = []
     for position, node in enumerate(more):
         if not isinstance(node, dict):
             raise CatalogError(f"more[{position}]: must be a mapping")
-        extras.append(Extra(repo=_repo(node.get("repo"), f"more[{position}]"), summary=_text(node, "summary", "more")))
+        where = f"more[{position}]"
+        extras.append(Extra(repo=_repo(node.get("repo"), where, extra=True), summary=_text(node, "summary", where)))
     return Catalog(
         owner=_text(raw, "owner", "catalog"),
         profile_url=_text(raw, "profile_url", "catalog"),
@@ -166,9 +169,36 @@ def parse(raw: object) -> Catalog:
     )
 
 
+class _UniqueKeyLoader(yaml.SafeLoader):
+    """A SafeLoader that rejects a mapping whose keys construct to the same value, such as `true:` and `True:`."""
+
+    def construct_mapping(self, node: yaml.MappingNode, deep: bool = False) -> dict:
+        seen = set()
+        for key_node, _ in node.value:
+            if key_node.tag == "tag:yaml.org,2002:merge":
+                continue
+            key = self.construct_object(key_node, deep=True)
+            try:
+                duplicate = key in seen
+            except TypeError:
+                continue  # an unhashable key; the base constructor reports it
+            if duplicate:
+                raise CatalogError(f"catalog: duplicate keys '{key_node.value}' (line {key_node.start_mark.line + 1})")
+            seen.add(key)
+        return super().construct_mapping(node, deep=deep)
+
+
+def loads(text: str) -> Catalog:
+    """Parse catalog YAML text. Plain YAML loaders keep the last of two equal keys, so duplicates are rejected."""
+    loader = _UniqueKeyLoader(text)
+    try:
+        return parse(loader.get_single_data())
+    finally:
+        loader.dispose()
+
+
 def load(path: Path) -> Catalog:
-    with path.open(encoding="utf-8") as handle:
-        return parse(yaml.safe_load(handle))
+    return loads(path.read_text(encoding="utf-8"))
 
 
 def repo_rule_errors(repo: Repo) -> list[str]:

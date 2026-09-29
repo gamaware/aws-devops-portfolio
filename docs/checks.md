@@ -11,6 +11,8 @@ These need only `data/catalog.yaml` (`scripts/portfolio_check/model.py`).
 | Rule | Source |
 | --- | --- |
 | Service IDs, offer names, repository names and local folders are unique | Catalog integrity |
+| No mapping repeats a key (YAML loaders would keep only the last value) | Catalog integrity |
+| `more`, when present, is a list; only its repositories may set `standard: false` | Catalog integrity |
 | Service IDs, repository names and local folders are lowercase words joined by hyphens, so no path leaves `assets/` or `REPOS_ROOT` | Catalog integrity; ADR 0002 |
 | `profile_url` is an Upwork freelancer profile; every card links it as "*service* on Upwork" | Upwork links |
 | Artifact paths are relative and stay inside the repository | Catalog integrity |
@@ -25,7 +27,7 @@ These need only `data/catalog.yaml` (`scripts/portfolio_check/model.py`).
 | `README.md`, `LICENSE`, `CHANGELOG.md` and at least two ADRs exist | Standard, layout |
 | The README sections follow the standard order | Standard, README template |
 | The cards between the generated markers match `make readme` output | ADR 0001 |
-| `docs/assets/social-preview.png` is a 1280x640 PNG | Standard, social preview |
+| `docs/assets/social-preview.png` is a 1280x640 PNG that decodes completely | Standard, social preview |
 | Every card cover is a 640x480 PNG with the pixels of the current repository cover, and every cover belongs to a service | ADR 0003 |
 
 ## Each listed repository
