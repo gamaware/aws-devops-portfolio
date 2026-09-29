@@ -213,6 +213,8 @@ with the rule behind it.
 
 ## Architecture
 
+![AWS and DevOps portfolio: from service card to engagement](docs/diagrams/architecture-animated.svg)
+
 ![Context: card to repository and offer; the catalog renders cards and checks repositories](docs/diagrams/portfolio-context.png)
 
 Service descriptions have a single source: [`data/catalog.yaml`](data/catalog.yaml). From that catalog,

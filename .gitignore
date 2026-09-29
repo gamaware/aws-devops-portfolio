@@ -19,8 +19,6 @@ live-output/
 .firecrawl/
 *.sarif
 .DS_Store
-.claude-flow/
-.claude/settings.local.json
 
 # Vale packages (downloaded by vale sync)
 styles/
