@@ -29,6 +29,11 @@ def test_tilde_fence_is_not_closed_by_backticks():
     assert readme.section_order_errors(text) == []
 
 
+def test_backtick_line_with_backtick_info_string_is_not_a_fence():
+    text = STANDARD_README.replace("## Architecture", "``` not`a fence\n\n## Architecture")
+    assert readme.section_order_errors(text) == []
+
+
 def test_wrong_opener_is_reported():
     text = STANDARD_README.replace("What this proves", "Overview")
     assert readme.section_order_errors(text) == [

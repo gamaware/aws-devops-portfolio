@@ -169,27 +169,32 @@ def parse(raw: object) -> Catalog:
     )
 
 
-def _duplicate_keys(node: yaml.Node | None) -> list[str]:
-    """Keys given twice in one mapping anywhere in a composed YAML tree, with their line numbers."""
-    if isinstance(node, yaml.MappingNode):
-        found, seen = [], set()
-        for key_node, value_node in node.value:
-            if key_node.value in seen:
-                found.append(f"'{key_node.value}' (line {key_node.start_mark.line + 1})")
-            seen.add(key_node.value)
-            found.extend(_duplicate_keys(value_node))
-        return found
-    if isinstance(node, yaml.SequenceNode):
-        return [key for child in node.value for key in _duplicate_keys(child)]
-    return []
+class _UniqueKeyLoader(yaml.SafeLoader):
+    """A SafeLoader that rejects a mapping whose keys construct to the same value, such as `true:` and `True:`."""
+
+    def construct_mapping(self, node: yaml.MappingNode, deep: bool = False) -> dict:
+        seen = set()
+        for key_node, _ in node.value:
+            if key_node.tag == "tag:yaml.org,2002:merge":
+                continue
+            key = self.construct_object(key_node, deep=True)
+            try:
+                duplicate = key in seen
+            except TypeError:
+                continue  # an unhashable key; the base constructor reports it
+            if duplicate:
+                raise CatalogError(f"catalog: duplicate keys '{key_node.value}' (line {key_node.start_mark.line + 1})")
+            seen.add(key)
+        return super().construct_mapping(node, deep=deep)
 
 
 def loads(text: str) -> Catalog:
-    """Parse catalog YAML text. Plain YAML loaders keep the last of two equal keys, so duplicates are rejected first."""
-    duplicates = _duplicate_keys(yaml.compose(text, Loader=yaml.SafeLoader))
-    if duplicates:
-        raise CatalogError(f"catalog: duplicate keys {', '.join(duplicates)}")
-    return parse(yaml.safe_load(text))
+    """Parse catalog YAML text. Plain YAML loaders keep the last of two equal keys, so duplicates are rejected."""
+    loader = _UniqueKeyLoader(text)
+    try:
+        return parse(loader.get_single_data())
+    finally:
+        loader.dispose()
 
 
 def load(path: Path) -> Catalog:

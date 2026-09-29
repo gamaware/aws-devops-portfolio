@@ -42,7 +42,8 @@ def h2_headings(markdown: str) -> list[str]:
             )
             if closes:
                 fence = ""
-        elif match:
+        elif match and not (match.group(1)[0] == "`" and "`" in line[match.end() :]):
+            # CommonMark: a backtick fence's info string may not contain a backtick, or the line is not a fence.
             fence = match.group(1)
         elif line.startswith("## "):
             headings.append(line[3:].strip())

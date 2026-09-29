@@ -127,6 +127,12 @@ def test_duplicate_yaml_keys_are_rejected():
         loads(text)
 
 
+def test_yaml_keys_that_construct_equal_are_rejected():
+    text = "services:\n  - id: audit\n    true: 1\n    True: 2\n"
+    with pytest.raises(CatalogError, match="duplicate keys 'True' \\(line 4\\)"):
+        loads(text)
+
+
 def test_catalog_without_more_parses(raw):
     raw.pop("more")
     assert parse(raw).more == ()
