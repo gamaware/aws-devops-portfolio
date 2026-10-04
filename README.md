@@ -11,8 +11,9 @@ points to the first artifact to review, and explains what the repository can ver
 
 ## What this proves
 
-- Each of the fourteen services links a repository that holds a report, runbook or working code as evidence beyond
-  the service description.
+- The catalog lists fourteen services backed by sixteen public repositories: one per service, one additional lab
+  and this index. Each service repository holds a report, runbook or working code as evidence beyond the service
+  description.
 - A single `make verify` command in each service repository checks its evidence offline without an AWS account
   or credentials.
 - Common requirements govern repository files, README section order, ADR format and descriptions. This repository
@@ -257,7 +258,7 @@ and the service on Upwork.
 ## Scenario and acceptance criteria
 
 A buyer or CTO needs to assess the work supporting a service in a few minutes, while an engineer needs to run it
-before a call. Both depend on this index keeping its information accurate as fifteen repositories evolve on
+before a call. Both depend on this index keeping its information accurate as sixteen repositories evolve on
 separate schedules.
 
 Each repository in this portfolio is a separate engagement with Harbor Goods, a fictional mid-size retailer. Details

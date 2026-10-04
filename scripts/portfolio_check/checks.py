@@ -161,6 +161,12 @@ def index_results(catalog: Catalog, index_root: Path) -> list[Result]:
             if current
             else _fail(f"{catalog.index.name}: README cards differ from data/catalog.yaml; run make readme")
         )
+    phrase = readme.counts_phrase(len(catalog.services), len(catalog.all_repos()))
+    results.append(
+        _pass(f"{catalog.index.name}: README states '{phrase}'")
+        if readme.mentions(readme_text, phrase)
+        else _fail(f"{catalog.index.name}: README must state '{phrase}' to match data/catalog.yaml")
+    )
     preview = index_root / "docs/assets/social-preview.png"
     size = png_size(preview) if preview.is_file() else None
     results.append(

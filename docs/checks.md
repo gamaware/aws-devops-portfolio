@@ -27,6 +27,7 @@ These need only `data/catalog.yaml` (`scripts/portfolio_check/model.py`).
 | `README.md`, `LICENSE`, `CHANGELOG.md` and at least two ADRs exist | Standard, layout |
 | The README sections follow the standard order | Standard, README template |
 | The cards between the generated markers match `make readme` output | ADR 0001 |
+| The README states the service and repository counts as "*N* services backed by *M* public repositories", with *N* the services and *M* every catalog repository including this index | Catalog integrity |
 | `docs/assets/social-preview.png` is a 1280x640 PNG that decodes completely | Standard, social preview |
 | Every card cover is a 640x480 PNG with the pixels of the current repository cover, and every cover belongs to a service | ADR 0003 |
 

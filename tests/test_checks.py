@@ -153,3 +153,13 @@ def test_cover_that_is_not_four_by_three_fails(workspace):
     catalog, index, root, repo = workspace
     shutil.copy(INDEX_ROOT / "docs/assets/social-preview.png", repo / "docs/assets/cover.png")
     assert _statuses(checks.cover_results(catalog, index, root), "expected a 4:3 image") == ["FAIL"]
+
+
+def test_index_readme_with_stale_counts_fails(tmp_path):
+    catalog = load(INDEX_ROOT / "data/catalog.yaml")
+    shutil.copytree(INDEX_ROOT / "docs", tmp_path / "docs")
+    for name in ("README.md", "LICENSE", "CHANGELOG.md"):
+        shutil.copy(INDEX_ROOT / name, tmp_path / name)
+    text = (tmp_path / "README.md").read_text(encoding="utf-8")
+    (tmp_path / "README.md").write_text(text.replace("sixteen public", "fifteen public"), encoding="utf-8")
+    assert _statuses(checks.index_results(catalog, tmp_path), "services backed by") == ["FAIL"]

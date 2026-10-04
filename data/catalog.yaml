@@ -60,7 +60,7 @@ services:
       description: >-
         Demonstrates an AWS security and IAM review through a ranked findings report and a SOC 2 control-to-evidence
         map; verified offline on a fictional account export.
-      topics: [aws, devops, portfolio, sample-deliverable, iam, least-privilege, security-review, soc2, checkov]
+      topics: [aws, devops, portfolio, sample-deliverable, iam, security-review, soc2, checkov]
     artifact:
       label: Security review report
       path: report/REPORT.md
