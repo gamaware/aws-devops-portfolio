@@ -258,7 +258,7 @@ and the service on Upwork.
 ## Scenario and acceptance criteria
 
 A buyer or CTO needs to assess the work supporting a service in a few minutes, while an engineer needs to run it
-before a call. Both depend on this index keeping its information accurate as sixteen repositories evolve on
+before a call. Both depend on this index keeping its information accurate as its repositories evolve on
 separate schedules.
 
 Each repository in this portfolio is a separate engagement with Harbor Goods, a fictional mid-size retailer. Details
