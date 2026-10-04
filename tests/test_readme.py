@@ -67,3 +67,14 @@ def test_replace_generated_keeps_the_rest():
 def test_replace_generated_needs_both_markers():
     with pytest.raises(ValueError, match="markers"):
         readme.replace_generated(f"{readme.END}\n{readme.BEGIN}\n", "x")
+
+
+def test_counts_phrase_spells_small_numbers():
+    assert readme.counts_phrase(14, 16) == "fourteen services backed by sixteen public repositories"
+    assert readme.counts_phrase(21, 23) == "21 services backed by 23 public repositories"
+
+
+def test_mentions_ignores_line_wrapping():
+    text = "The catalog lists fourteen services backed by\n  sixteen public repositories."
+    assert readme.mentions(text, readme.counts_phrase(14, 16))
+    assert not readme.mentions(text, readme.counts_phrase(14, 15))

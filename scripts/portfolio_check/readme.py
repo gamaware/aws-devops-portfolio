@@ -22,6 +22,30 @@ CLOSING = "License"
 BEGIN = "<!-- BEGIN GENERATED: cards from data/catalog.yaml, run `make readme` -->"
 END = "<!-- END GENERATED: cards -->"
 
+_NUMBER_WORDS = [
+    "zero",
+    "one",
+    "two",
+    "three",
+    "four",
+    "five",
+    "six",
+    "seven",
+    "eight",
+    "nine",
+    "ten",
+    "eleven",
+    "twelve",
+    "thirteen",
+    "fourteen",
+    "fifteen",
+    "sixteen",
+    "seventeen",
+    "eighteen",
+    "nineteen",
+    "twenty",
+]
+
 # A CommonMark code fence: up to three spaces, then three or more backticks or tildes.
 _FENCE_RE = re.compile(r"^ {0,3}(`{3,}|~{3,})")
 
@@ -72,6 +96,21 @@ def section_order_errors(markdown: str) -> list[str]:
     if not missing and not extra:
         errors.append(f"sections out of order: {' > '.join(headings[1:])}")
     return errors
+
+
+def number_word(n: int) -> str:
+    """Spell out 0-20 as the README prose does; larger numbers stay digits."""
+    return _NUMBER_WORDS[n] if 0 <= n < len(_NUMBER_WORDS) else str(n)
+
+
+def counts_phrase(services: int, repositories: int) -> str:
+    """The README phrase that states how many services and public repositories the catalog lists."""
+    return f"{number_word(services)} services backed by {number_word(repositories)} public repositories"
+
+
+def mentions(markdown: str, phrase: str) -> bool:
+    """True when `phrase` appears in `markdown`, ignoring line wrapping and repeated spaces."""
+    return " ".join(phrase.split()) in " ".join(markdown.split())
 
 
 def replace_generated(markdown: str, block: str) -> str:
