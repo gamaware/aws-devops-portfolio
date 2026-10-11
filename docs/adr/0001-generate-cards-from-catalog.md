@@ -6,7 +6,7 @@ Accepted
 
 ## Context
 
-The index describes ten services, each with an Upwork offer, a repository, an artifact and a verification scope.
+The index describes fourteen services, each with an Upwork offer, a repository, an artifact and a verification scope.
 The same facts also appear in each repository's GitHub description and topics. In a hand-written README, a
 renamed repository or offer means edits in two or three places, and nothing notices a missed one.
 
