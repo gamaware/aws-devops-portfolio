@@ -46,7 +46,7 @@ class Artifact:
 @dataclass(frozen=True)
 class Service:
     id: str
-    offer: str
+    name: str
     problem: str
     repo: Repo
     artifact: Artifact
@@ -62,7 +62,6 @@ class Extra:
 @dataclass(frozen=True)
 class Catalog:
     owner: str
-    profile_url: str
     index: Repo
     services: tuple[Service, ...]
     more: tuple[Extra, ...]
@@ -132,7 +131,7 @@ def _service(node: object, position: int) -> Service:
         raise CatalogError(f"{where}: 'artifact' must be a mapping")
     return Service(
         id=sid,
-        offer=_text(node, "offer", where),
+        name=_text(node, "name", where),
         problem=_text(node, "problem", where),
         repo=_repo(node.get("repo"), where),
         artifact=Artifact(
@@ -162,7 +161,6 @@ def parse(raw: object) -> Catalog:
         extras.append(Extra(repo=_repo(node.get("repo"), where, extra=True), summary=_text(node, "summary", where)))
     return Catalog(
         owner=_text(raw, "owner", "catalog"),
-        profile_url=_text(raw, "profile_url", "catalog"),
         index=_repo(raw.get("index"), "index"),
         services=tuple(_service(node, i) for i, node in enumerate(services)),
         more=tuple(extras),
@@ -227,11 +225,9 @@ def repo_rule_errors(repo: Repo) -> list[str]:
 def catalog_rule_errors(catalog: Catalog) -> list[str]:
     """Rules across the whole catalog that need no file outside data/catalog.yaml."""
     errors = []
-    if not catalog.profile_url.startswith("https://www.upwork.com/freelancers/~"):
-        errors.append("profile_url must be an Upwork freelancer profile")
     for field, values in (
         ("service id", [s.id for s in catalog.services]),
-        ("offer", [s.offer for s in catalog.services]),
+        ("service name", [s.name for s in catalog.services]),
         ("repository name", [r.name for r in catalog.all_repos()]),
         ("local folder", [r.local for r in catalog.all_repos()]),
     ):

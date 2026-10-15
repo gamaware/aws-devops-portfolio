@@ -1,21 +1,24 @@
+import re
+
 from conftest import INDEX_ROOT
 from portfolio_check import render
 from portfolio_check.model import load, parse
 
 
-def test_card_has_the_four_fields_and_the_offer(raw):
+def test_card_has_the_four_fields(raw):
     catalog = parse(raw)
     text = "\n".join(render.card(catalog, catalog.services[0]))
     assert "[![Terraform audit and fix](assets/audit.png)](https://github.com/example-owner/example-lab)" in text
-    for field in ("Client problem", "Repository", "Strongest artifact", "Verification scope", "Upwork offer"):
+    for field in ("Problem", "Repository", "Strongest artifact", "Verification scope"):
         assert f"- **{field}:**" in text
-    assert "[Terraform audit and fix on Upwork](https://www.upwork.com/freelancers/~0100000000000000000)" in text
+    assert "### Terraform audit and fix" in text
 
 
-def test_every_offer_links_to_the_profile(raw):
+def test_cards_link_only_github(raw):
     block = render.cards_block(parse(raw))
-    assert "services/product/" not in block
-    assert block.count("https://www.upwork.com/freelancers/~0100000000000000000") == len(raw["services"])
+    links = re.findall(r"\]\((https?://[^)]+)\)", block)
+    assert links
+    assert all(link.startswith("https://github.com/example-owner/") for link in links)
 
 
 def test_in_progress_repository_is_labelled(raw):
@@ -34,4 +37,3 @@ def test_real_catalog_renders_every_service_and_the_extra():
     assert block.count("\n### ") == len(catalog.services) + 1
     assert "https://github.com/gamaware/terraform-aws-rescue-lab" in block
     assert "terraform-aws-baseline-lab" not in block
-    assert "services/product/" not in block

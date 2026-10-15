@@ -1,30 +1,26 @@
 # AWS and DevOps portfolio
 
-Each consulting service has a card that identifies the client problem, links the supporting public repository,
-points to the first artifact to review, and explains what the repository can verify without an AWS account.
+Index of AWS and DevOps projects. Each card names the problem a project addresses, links its repository and
+strongest artifact, and states what the repository verifies without an AWS account.
 
 [![CI](https://github.com/gamaware/aws-devops-portfolio/actions/workflows/ci.yml/badge.svg)](https://github.com/gamaware/aws-devops-portfolio/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 ![Portfolio index](https://img.shields.io/badge/type-portfolio%20index-243B53)
 
-![AWS and DevOps consulting portfolio: services, artifacts, and make verify](docs/assets/social-preview.png)
+![AWS and DevOps portfolio: services, artifacts, and make verify](docs/assets/social-preview.png)
 
 ## What this proves
 
 - The catalog lists fourteen services backed by sixteen public repositories: one per service, one additional lab
-  and this index. Each service repository holds a report, runbook or working code as evidence beyond the service
-  description.
+  and this index. Each service repository holds a report, runbook or working code.
 - A single `make verify` command in each service repository checks its evidence offline without an AWS account
   or credentials.
 - Common requirements govern repository files, README section order, ADR format and descriptions. This repository
   checks compliance across the collection.
-- Every repository marks its deliverables as fictional, using Harbor Goods, a fictional mid-size retailer, and
-  example account IDs from AWS documentation.
 
 ## Inspect the deliverable
 
-Choose the service closest to your problem, then follow its card to the repository, the first artifact to review
-and the service on Upwork.
+Each card links the repository and the first artifact to read.
 
 <!-- BEGIN GENERATED: cards from data/catalog.yaml, run `make readme` -->
 
@@ -39,7 +35,7 @@ and the service on Upwork.
 | [DevOps and Well-Architected assessment](#devops-and-well-architected-assessment) | [`aws-well-architected-assessment-sample`](https://github.com/gamaware/aws-well-architected-assessment-sample) | [Assessment report](https://github.com/gamaware/aws-well-architected-assessment-sample/blob/main/report/REPORT.md) |
 | [AWS cost optimization audit](#aws-cost-optimization-audit) | [`aws-cost-optimization-audit-sample`](https://github.com/gamaware/aws-cost-optimization-audit-sample) | [Cost audit report](https://github.com/gamaware/aws-cost-optimization-audit-sample/blob/main/report/REPORT.md) |
 | [Migration to AWS](#migration-to-aws) | [`aws-migration-runbook-sample`](https://github.com/gamaware/aws-migration-runbook-sample) | [Wave 1 cutover runbook](https://github.com/gamaware/aws-migration-runbook-sample/blob/main/runbooks/wave-1-cutover.md) |
-| [AWS workshop and mentoring](#aws-workshop-and-mentoring) | [`aws-devops-workshop-labs`](https://github.com/gamaware/aws-devops-workshop-labs) | [Labs](https://github.com/gamaware/aws-devops-workshop-labs/tree/main/labs) |
+| [AWS DevOps workshop labs](#aws-devops-workshop-labs) | [`aws-devops-workshop-labs`](https://github.com/gamaware/aws-devops-workshop-labs) | [Labs](https://github.com/gamaware/aws-devops-workshop-labs/tree/main/labs) |
 | [RAG on Amazon Bedrock](#rag-on-amazon-bedrock) | [`terraform-aws-bedrock-rag-lab`](https://github.com/gamaware/terraform-aws-bedrock-rag-lab) | [Evaluation report](https://github.com/gamaware/terraform-aws-bedrock-rag-lab/blob/main/report/REPORT.md) |
 | [AI agents on Amazon Bedrock AgentCore](#ai-agents-on-amazon-bedrock-agentcore) | [`terraform-aws-agentcore-agent-lab`](https://github.com/gamaware/terraform-aws-agentcore-agent-lab) | [Cedar policies](https://github.com/gamaware/terraform-aws-agentcore-agent-lab/tree/main/policy) |
 | [GenAI release pipeline and evaluations](#genai-release-pipeline-and-evaluations) | [`bedrock-genaiops-release-gate-lab`](https://github.com/gamaware/bedrock-genaiops-release-gate-lab) | [Release gate report](https://github.com/gamaware/bedrock-genaiops-release-gate-lab/blob/main/report/REPORT.md) |
@@ -49,147 +45,132 @@ and the service on Upwork.
 
 [![Terraform on AWS audit and fix](assets/terraform-audit.png)](https://github.com/gamaware/terraform-aws-rescue-lab)
 
-- **Client problem:** Terraform nobody trusts: local state, copy-pasted environments and plans that could delete
-  production data.
+- **Problem:** Terraform nobody trusts: local state, copy-pasted environments and plans that could delete production
+  data.
 - **Repository:** [`terraform-aws-rescue-lab`](https://github.com/gamaware/terraform-aws-rescue-lab), lab
 - **Strongest artifact:** [Diagnosis
   report](https://github.com/gamaware/terraform-aws-rescue-lab/blob/main/report/REPORT.md). 10 findings ranked by risk,
   each with evidence and a fix, plus the repair order and a state migration.
 - **Verification scope:** Checkov and tflint counts before and after, terraform test with a mocked provider and
   plan-gate fixtures, all offline; `make demo` replays the state migration against a local emulator.
-- **Upwork offer:** [Terraform on AWS audit and fix on Upwork](https://www.upwork.com/freelancers/~014b3520cf9e140103)
 
 ### CI/CD pipeline to AWS
 
 [![CI/CD pipeline to AWS](assets/cicd.png)](https://github.com/gamaware/github-actions-aws-oidc-lab)
 
-- **Client problem:** Long-lived AWS keys in CI, and deploys that can ship an image nobody scanned.
+- **Problem:** Long-lived AWS keys in CI, and deploys that can ship an image nobody scanned.
 - **Repository:** [`github-actions-aws-oidc-lab`](https://github.com/gamaware/github-actions-aws-oidc-lab), lab
 - **Strongest artifact:** [Deploy
   workflow](https://github.com/gamaware/github-actions-aws-oidc-lab/blob/main/.github/workflows/deploy.yml). Build once,
   Trivy gate, OIDC role, push by digest, deploy, then fail the run if ECS rolled back.
 - **Verification scope:** pytest policy tests, mocked terraform test, tflint, Checkov, actionlint and zizmor, with no
   AWS credentials.
-- **Upwork offer:** [CI/CD pipeline to AWS on Upwork](https://www.upwork.com/freelancers/~014b3520cf9e140103)
 
 ### AWS security and IAM review
 
 [![AWS security and IAM review](assets/iam-review.png)](https://github.com/gamaware/aws-iam-security-review-sample)
 
-- **Client problem:** An account that grew without an access model, with administrator CI roles, root keys and public
-  buckets.
-- **Repository:** [`aws-iam-security-review-sample`](https://github.com/gamaware/aws-iam-security-review-sample),
-  fictional sample deliverable
+- **Problem:** An account that grew without an access model, with administrator CI roles, root keys and public buckets.
+- **Repository:** [`aws-iam-security-review-sample`](https://github.com/gamaware/aws-iam-security-review-sample), sample
+  deliverable
 - **Strongest artifact:** [Security review
   report](https://github.com/gamaware/aws-iam-security-review-sample/blob/main/report/REPORT.md). 9 ranked findings with
   evidence, impact and policy rewrites, then quick wins and a baseline SCP.
 - **Verification scope:** 17 offline checks and Checkov run on the account before and after the fixes; CI regenerates
   the evidence and diffs it.
-- **Upwork offer:** [AWS security and IAM review on Upwork](https://www.upwork.com/freelancers/~014b3520cf9e140103)
 
 ### Kubernetes on Amazon EKS
 
 [![Kubernetes on Amazon EKS](assets/eks.png)](https://github.com/gamaware/terraform-aws-eks-gitops-lab)
 
-- **Client problem:** A team that needs Kubernetes on AWS without a hand-built cluster or a branch per environment.
+- **Problem:** A team that needs Kubernetes on AWS without a hand-built cluster or a branch per environment.
 - **Repository:** [`terraform-aws-eks-gitops-lab`](https://github.com/gamaware/terraform-aws-eks-gitops-lab), lab
 - **Strongest artifact:** [EKS
   module](https://github.com/gamaware/terraform-aws-eks-gitops-lab/tree/main/infra/terraform/modules/eks). Cluster,
   access entries, add-ons and Pod Identity per controller, with mocked terraform test runs.
 - **Verification scope:** Mocked terraform test, Helm lint and render assertions, and kubeconform schema checks; helm
   test needs a cluster and runs only live.
-- **Upwork offer:** [Kubernetes on Amazon EKS on Upwork](https://www.upwork.com/freelancers/~014b3520cf9e140103)
 
 ### Containerize and deploy to ECS Fargate
 
 [![Containerize and deploy to ECS Fargate](assets/ecs.png)](https://github.com/gamaware/aws-ecs-fargate-deploy-lab)
 
-- **Client problem:** An application that runs on one machine and needs a repeatable, reversible path to AWS.
+- **Problem:** An application that runs on one machine and needs a repeatable, reversible path to AWS.
 - **Repository:** [`aws-ecs-fargate-deploy-lab`](https://github.com/gamaware/aws-ecs-fargate-deploy-lab), lab
 - **Strongest artifact:** [ECS service
   definition](https://github.com/gamaware/aws-ecs-fargate-deploy-lab/blob/main/infra/terraform/service/ecs.tf). Task
   hardening, the deployment circuit breaker and alarm-based rollback in one Terraform file.
 - **Verification scope:** App tests, mocked terraform test, Checkov, Trivy and hadolint, plus a smoke test of the image
   under ECS constraints.
-- **Upwork offer:** [Containerize and deploy to ECS Fargate on
-  Upwork](https://www.upwork.com/freelancers/~014b3520cf9e140103)
 
 ### AWS landing zone for a new project
 
 [![AWS landing zone for a new project](assets/aws-foundation.png)](https://github.com/gamaware/terraform-aws-landing-zone-lab)
 
-- **Client problem:** A new project that starts in one AWS account, with shared administrator access and no audit trail.
+- **Problem:** A new project that starts in one AWS account, with shared administrator access and no audit trail.
 - **Repository:** [`terraform-aws-landing-zone-lab`](https://github.com/gamaware/terraform-aws-landing-zone-lab), lab
 - **Strongest artifact:** [Service control
   policies](https://github.com/gamaware/terraform-aws-landing-zone-lab/tree/main/policies/scp). The guardrails, each
   tested against the requests it must deny or allow.
 - **Verification scope:** Mocked terraform test for every module, SCP evaluation tests, tflint and Checkov, with no AWS
   credentials.
-- **Upwork offer:** [AWS landing zone for a new project on
-  Upwork](https://www.upwork.com/freelancers/~014b3520cf9e140103)
 
 ### DevOps and Well-Architected assessment
 
 [![DevOps and Well-Architected assessment](assets/wa-assessment.png)](https://github.com/gamaware/aws-well-architected-assessment-sample)
 
-- **Client problem:** A team that ships often, recovers slowly and cannot tell which risk to fix first.
+- **Problem:** A team that ships often, recovers slowly and cannot tell which risk to fix first.
 - **Repository:**
-  [`aws-well-architected-assessment-sample`](https://github.com/gamaware/aws-well-architected-assessment-sample),
-  fictional sample deliverable
+  [`aws-well-architected-assessment-sample`](https://github.com/gamaware/aws-well-architected-assessment-sample), sample
+  deliverable
 - **Strongest artifact:** [Assessment
   report](https://github.com/gamaware/aws-well-architected-assessment-sample/blob/main/report/REPORT.md). Scores across
   six pillars and the DevOps lens, the ranked backlog, the roadmap and an evidence register.
 - **Verification scope:** Scripts regenerate every table from the recorded answers, and an independent test
   implementation recomputes each number.
-- **Upwork offer:** [DevOps and Well-Architected assessment on
-  Upwork](https://www.upwork.com/freelancers/~014b3520cf9e140103)
 
 ### AWS cost optimization audit
 
 [![AWS cost optimization audit](assets/cost.png)](https://github.com/gamaware/aws-cost-optimization-audit-sample)
 
-- **Client problem:** An AWS bill that grows every month with no owner for most of the spend.
+- **Problem:** An AWS bill that grows every month with no owner for most of the spend.
 - **Repository:**
-  [`aws-cost-optimization-audit-sample`](https://github.com/gamaware/aws-cost-optimization-audit-sample), fictional
-  sample deliverable
+  [`aws-cost-optimization-audit-sample`](https://github.com/gamaware/aws-cost-optimization-audit-sample), sample
+  deliverable
 - **Strongest artifact:** [Cost audit
   report](https://github.com/gamaware/aws-cost-optimization-audit-sample/blob/main/report/REPORT.md). Ranked savings
   split into quick wins and planned work, commitment sizing, tagging plan and assumptions.
 - **Verification scope:** Calculation tests derive each saving again from hours, rates and gigabytes; CI checks the
   evidence and the PDF against a fresh run.
-- **Upwork offer:** [AWS cost optimization audit on Upwork](https://www.upwork.com/freelancers/~014b3520cf9e140103)
 
 ### Migration to AWS
 
 [![Migration to AWS](assets/migration.png)](https://github.com/gamaware/aws-migration-runbook-sample)
 
-- **Client problem:** A data-center application that must move to AWS with a short outage and a way back.
-- **Repository:** [`aws-migration-runbook-sample`](https://github.com/gamaware/aws-migration-runbook-sample), fictional
-  sample deliverable
+- **Problem:** A data-center application that must move to AWS with a short outage and a way back.
+- **Repository:** [`aws-migration-runbook-sample`](https://github.com/gamaware/aws-migration-runbook-sample), sample
+  deliverable
 - **Strongest artifact:** [Wave 1 cutover
   runbook](https://github.com/gamaware/aws-migration-runbook-sample/blob/main/runbooks/wave-1-cutover.md). Timed steps
   with checkpoints, rollback triggers, validation queries and acceptance criteria.
 - **Verification scope:** Plan and runbook rules, pytest, mocked terraform test, TFLint and Checkov, with no AWS
   credentials.
-- **Upwork offer:** [Migration to AWS on Upwork](https://www.upwork.com/freelancers/~014b3520cf9e140103)
 
-### AWS workshop and mentoring
+### AWS DevOps workshop labs
 
-[![AWS workshop and mentoring](assets/workshop.png)](https://github.com/gamaware/aws-devops-workshop-labs)
+[![AWS DevOps workshop labs](assets/workshop.png)](https://github.com/gamaware/aws-devops-workshop-labs)
 
-- **Client problem:** A team that needs hands-on practice with AWS, Terraform, CDK or CI/CD before it changes its own
-  systems.
+- **Problem:** A team that needs hands-on practice with AWS, Terraform, CDK or CI/CD before it changes its own systems.
 - **Repository:** [`aws-devops-workshop-labs`](https://github.com/gamaware/aws-devops-workshop-labs), teaching labs
 - **Strongest artifact:** [Labs](https://github.com/gamaware/aws-devops-workshop-labs/tree/main/labs). Numbered labs,
   each with objectives, starter code, a solution, tests and reset steps.
 - **Verification scope:** Each lab's tests run against its solution with no AWS account.
-- **Upwork offer:** [AWS workshop and mentoring on Upwork](https://www.upwork.com/freelancers/~014b3520cf9e140103)
 
 ### RAG on Amazon Bedrock
 
 [![RAG on Amazon Bedrock](assets/rag.png)](https://github.com/gamaware/terraform-aws-bedrock-rag-lab)
 
-- **Client problem:** Staff answer policy questions by searching hundreds of documents by hand, and answers are slow and
+- **Problem:** Staff answer policy questions by searching hundreds of documents by hand, and answers are slow and
   inconsistent.
 - **Repository:** [`terraform-aws-bedrock-rag-lab`](https://github.com/gamaware/terraform-aws-bedrock-rag-lab), lab
 - **Strongest artifact:** [Evaluation
@@ -197,14 +178,13 @@ and the service on Upwork.
   chunking decision, guardrail evidence, cost per question and risks.
 - **Verification scope:** Retrieval and answer evaluations against a golden set with a stubbed Bedrock client, pytest,
   mocked terraform test, tflint, Checkov and Semgrep, with no AWS credentials.
-- **Upwork offer:** [RAG on Amazon Bedrock on Upwork](https://www.upwork.com/freelancers/~014b3520cf9e140103)
 
 ### AI agents on Amazon Bedrock AgentCore
 
 [![AI agents on Amazon Bedrock AgentCore](assets/agentcore.png)](https://github.com/gamaware/terraform-aws-agentcore-agent-lab)
 
-- **Client problem:** An assistant that must act on orders and returns, not just answer, with every action authorized
-  per person.
+- **Problem:** An assistant that must act on orders and returns, not just answer, with every action authorized per
+  person.
 - **Repository:** [`terraform-aws-agentcore-agent-lab`](https://github.com/gamaware/terraform-aws-agentcore-agent-lab),
   lab
 - **Strongest artifact:** [Cedar
@@ -212,15 +192,12 @@ and the service on Upwork.
   enforces, tested against an allow and deny table.
 - **Verification scope:** Scripted agent sessions, including a model that misbehaves on purpose, Cedar policy tests,
   mocked terraform test and an image smoke test, with no AWS credentials.
-- **Upwork offer:** [AI agents on Amazon Bedrock AgentCore on
-  Upwork](https://www.upwork.com/freelancers/~014b3520cf9e140103)
 
 ### GenAI release pipeline and evaluations
 
 [![GenAI release pipeline and evaluations](assets/genaiops.png)](https://github.com/gamaware/bedrock-genaiops-release-gate-lab)
 
-- **Client problem:** Prompt, model and guardrail changes that can quietly make answers worse, weaken safety or raise
-  the bill.
+- **Problem:** Prompt, model and guardrail changes that can quietly make answers worse, weaken safety or raise the bill.
 - **Repository:** [`bedrock-genaiops-release-gate-lab`](https://github.com/gamaware/bedrock-genaiops-release-gate-lab),
   lab
 - **Strongest artifact:** [Release gate
@@ -228,25 +205,20 @@ and the service on Upwork.
   decided for each change, cost per request and the risks it leaves.
 - **Verification scope:** The gate replays recorded runs for six changes, with pytest, mocked terraform test, actionlint
   and zizmor, and no AWS credentials.
-- **Upwork offer:** [GenAI release pipeline and evaluations on
-  Upwork](https://www.upwork.com/freelancers/~014b3520cf9e140103)
 
 ### GenAI architecture and cost review
 
 [![GenAI architecture and cost review](assets/genai-review.png)](https://github.com/gamaware/aws-genai-architecture-review-sample)
 
-- **Client problem:** A generative AI workload on Amazon Bedrock that works, but costs too much and leaks risk nobody
-  ranked.
+- **Problem:** A generative AI workload on Amazon Bedrock that works, but costs too much and leaks risk nobody ranked.
 - **Repository:**
-  [`aws-genai-architecture-review-sample`](https://github.com/gamaware/aws-genai-architecture-review-sample), fictional
-  sample deliverable
+  [`aws-genai-architecture-review-sample`](https://github.com/gamaware/aws-genai-architecture-review-sample), sample
+  deliverable
 - **Strongest artifact:** [Review
   report](https://github.com/gamaware/aws-genai-architecture-review-sample/blob/main/report/REPORT.md). Findings ranked
   by risk, each with the code that fixes it, and a monthly cost model before and after.
 - **Verification scope:** Scripted checks recompute each finding and the cost model from the exports; mocked terraform
   test covers the fixes, all offline.
-- **Upwork offer:** [GenAI architecture and cost review on
-  Upwork](https://www.upwork.com/freelancers/~014b3520cf9e140103)
 
 ### More
 
@@ -257,12 +229,8 @@ and the service on Upwork.
 
 ## Scenario and acceptance criteria
 
-A buyer or CTO needs to assess the work supporting a service in a few minutes, while an engineer needs to run it
-before a call. Both depend on this index keeping its information accurate as its repositories evolve on
-separate schedules.
-
-Each repository in this portfolio is a separate engagement with Harbor Goods, a fictional mid-size retailer. Details
-such as its accounts and systems belong to that engagement and do not carry over between repositories.
+The index must stay accurate while its repositories change on separate schedules. Each repository is a separate
+engagement with Harbor Goods, a mid-size retailer; its accounts and systems do not carry over between repositories.
 
 For the index to pass its checks:
 
@@ -281,9 +249,9 @@ with the rule behind it.
 
 ## Architecture
 
-![AWS and DevOps portfolio: from service card to engagement](docs/diagrams/architecture-animated.svg)
+![AWS and DevOps portfolio: from service card to local run](docs/diagrams/architecture-animated.svg)
 
-![Context: card to repository and offer; the catalog renders cards and checks repositories](docs/diagrams/portfolio-context.png)
+![Context: card to repository and artifact; the catalog renders cards and checks repositories](docs/diagrams/portfolio-context.png)
 
 Service descriptions have a single source: [`data/catalog.yaml`](data/catalog.yaml). From that catalog,
 `make readme` generates this README's cards. To check their accuracy, `make verify` inspects local checkouts of
@@ -331,7 +299,7 @@ preview. Because this repository provisions no AWS resources, the live test acce
 
 ```text
 .
-├── data/catalog.yaml          # services, offers, repositories, descriptions and topics
+├── data/catalog.yaml          # services, repositories, artifacts, descriptions and topics
 ├── assets/                    # card covers, 640x480 copies of each repository cover
 ├── scripts/portfolio_check/   # model, README rules, card rendering, checks, cover copy, live comparison
 ├── scripts/clone-siblings.sh  # clones every listed repository for CI
@@ -376,18 +344,14 @@ The `main` branch runs OpenSSF Scorecard.
   order. It makes no assessment of report quality.
 - Card numbers come directly from repository READMEs. Comparisons with source repositories cover only artifact
   paths and cover images.
-- Upwork offer URLs are not stable and Upwork blocks automated requests, so each card links the Upwork profile and
-  verification does not retrieve Upwork pages.
 - Public repositories and a GitHub token are prerequisites for `make test-live`. The command reports differences
   without correcting them.
 
 ## Related work
 
-- Alex Garcia's Upwork profile: [upwork.com/freelancers/~014b3520cf9e140103](https://www.upwork.com/freelancers/~014b3520cf9e140103).
 - [gamaware/.github](https://github.com/gamaware/.github) contains the shared workflows, community files and
   social preview generator.
-- The method is the one Alex uses in audits for ITESO and freelance clients in Guadalajara. Every finding in the
-  samples comes from fictional data.
+- Harbor Goods and its names are illustrative; account IDs are placeholders.
 - Further repository information appears in the [change history](CHANGELOG.md) and [security policy](SECURITY.md).
 
 ## License

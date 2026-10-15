@@ -72,7 +72,7 @@ def test_duplicates_are_reported(raw):
     raw["services"].append(raw["services"][0])
     errors = catalog_rule_errors(parse(raw))
     assert "duplicate service id: audit" in errors
-    assert "duplicate offer: Terraform audit and fix" in errors
+    assert "duplicate service name: Terraform audit and fix" in errors
     assert "duplicate repository name: example-lab" in errors
 
 
@@ -114,11 +114,6 @@ def test_structural_errors_raise(raw, mutate, message):
 )
 def test_anchor_matches_github(title, expected):
     assert anchor(title) == expected
-
-
-def test_profile_url_is_checked(raw):
-    raw["profile_url"] = "https://example.com/profile"
-    assert "profile_url must be an Upwork freelancer profile" in catalog_rule_errors(parse(raw))
 
 
 def test_duplicate_yaml_keys_are_rejected():
