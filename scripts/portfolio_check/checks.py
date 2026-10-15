@@ -147,7 +147,7 @@ def _repo_results(catalog: Catalog, repo: Repo, repos_root: Path, service: Servi
 def index_results(catalog: Catalog, index_root: Path) -> list[Result]:
     """This repository: catalog rules, its own structure, the generated cards and the social preview."""
     errors = catalog_rule_errors(catalog)
-    results = [_fail(f"catalog: {e}") for e in errors] or [_pass("catalog: names, offers, descriptions and topics")]
+    results = [_fail(f"catalog: {e}") for e in errors] or [_pass("catalog: names, descriptions and topics")]
     results.extend(structure_results(catalog.index.name, index_root, (*MINIMAL_FILES, "CHANGELOG.md"), MIN_ADRS))
     readme_path = index_root / "README.md"
     readme_text = readme_path.read_text(encoding="utf-8") if readme_path.is_file() else ""

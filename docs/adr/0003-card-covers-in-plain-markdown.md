@@ -6,7 +6,7 @@ Accepted
 
 ## Context
 
-Each card shows the cover of its Upwork offer, which each repository keeps as a 1600x1200 `docs/assets/cover.png`.
+Each card shows the cover of its service, which each repository keeps as a 1600x1200 `docs/assets/cover.png`.
 GitHub renders a Markdown image at its natural width up to the page width, so ten full-size covers make a long page.
 Sizing an image needs an HTML `img` tag, which markdownlint rule MD033 rejects, and this portfolio does not suppress
 lint rules.
@@ -16,7 +16,7 @@ lint rules.
 `make covers` resizes each repository cover to 640x480 into `assets/<service id>.png`. Cards use plain Markdown
 images. `make check` resizes each source again with the Pillow version pinned in `uv.lock` and compares pixels, so
 the repository keeps no hash file. A service whose repository has no cover yet
-takes its approved Upwork cover through `--source <id>=<path>`.
+takes an approved cover through `--source <id>=<path>`.
 
 ## Consequences
 

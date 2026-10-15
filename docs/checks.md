@@ -10,11 +10,10 @@ These need only `data/catalog.yaml` (`scripts/portfolio_check/model.py`).
 
 | Rule | Source |
 | --- | --- |
-| Service IDs, offer names, repository names and local folders are unique | Catalog integrity |
+| Service IDs, service names, repository names and local folders are unique | Catalog integrity |
 | No mapping repeats a key (YAML loaders would keep only the last value) | Catalog integrity |
 | `more`, when present, is a list; only its repositories may set `standard: false` | Catalog integrity |
 | Service IDs, repository names and local folders are lowercase words joined by hyphens, so no path leaves `assets/` or `REPOS_ROOT` | Catalog integrity; ADR 0002 |
-| `profile_url` is an Upwork freelancer profile; every card links it as "*service* on Upwork" | Upwork links |
 | Artifact paths are relative and stay inside the repository | Catalog integrity |
 | Descriptions read "Demonstrates *capability* through *artifact*; verified *scope*." within 350 characters | Standard, cohesion rules; GitHub limit |
 | At most 10 topics, each lowercase letters, digits and hyphens, 50 characters at most | Standard; GitHub topic rules |

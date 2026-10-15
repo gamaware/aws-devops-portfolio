@@ -25,11 +25,9 @@ jobs:
       contents: read # checkout
     with:
       vale-paths: README.md CHANGELOG.md SECURITY.md docs .github
-      # Upwork answers bots with 403, so its profile URLs are excluded; GitHub may rate-limit with 429.
-      # Every other link must resolve with a 2xx status.
+      # GitHub may rate-limit with 429; every other link must resolve with a 2xx status.
       lychee-args: >-
-        --no-progress --max-retries 3 --accept 200..=299,429
-        --exclude '^https://www\.upwork\.com/freelancers/' './**/*.md'
+        --no-progress --max-retries 3 --accept 200..=299,429 './**/*.md'
 
   lint-actions:
     name: lint-actions

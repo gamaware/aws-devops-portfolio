@@ -1,7 +1,7 @@
 # Copilot code review instructions
 
-This repository is the index of a public AWS and DevOps portfolio: one card per Upwork service offer, each backed by
-a public repository. When reviewing pull requests:
+This repository is the index of a public AWS and DevOps portfolio: one card per service, each backed by a public
+repository. When reviewing pull requests:
 
 - Check that `README.md` text between `BEGIN GENERATED` and `END GENERATED` markers comes from `make readme`
   and `data/catalog.yaml`, not from hand edits.

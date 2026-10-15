@@ -7,7 +7,7 @@ import textwrap
 from .model import Catalog, Service
 
 LINE_LENGTH = 120  # markdownlint MD013 in this repository
-KIND_LABEL = {"lab": "lab", "labs": "teaching labs", "sample": "fictional sample deliverable", "index": "index"}
+KIND_LABEL = {"lab": "lab", "labs": "teaching labs", "sample": "sample deliverable", "index": "index"}
 
 
 def cover_path(service: Service) -> str:
@@ -18,11 +18,6 @@ def anchor(title: str) -> str:
     """GitHub's heading anchor: lowercase, spaces to hyphens, punctuation other than hyphens dropped."""
     kept = "".join(c for c in title.lower() if c.isalnum() or c in " -")
     return kept.replace(" ", "-")
-
-
-def offer_link(catalog: Catalog, service: Service) -> str:
-    """Upwork offer URLs change, so every offer links to the freelancer profile."""
-    return f"[{service.offer} on Upwork]({catalog.profile_url})"
 
 
 def _repo_line(catalog: Catalog, service: Service) -> str:
@@ -40,7 +35,7 @@ def overview_table(catalog: Catalog) -> list[str]:
     ]
     for service in catalog.services:
         rows.append(
-            f"| [{service.offer}](#{anchor(service.offer)}) "
+            f"| [{service.name}](#{anchor(service.name)}) "
             f"| [`{service.repo.name}`]({catalog.repo_url(service.repo)}) "
             f"| [{service.artifact.label}]({catalog.artifact_url(service)}) |"
         )
@@ -61,17 +56,16 @@ def bullet(text: str) -> list[str]:
 
 def card(catalog: Catalog, service: Service) -> list[str]:
     fields = [
-        f"**Client problem:** {service.problem}",
+        f"**Problem:** {service.problem}",
         f"**Repository:** {_repo_line(catalog, service)}",
         f"**Strongest artifact:** [{service.artifact.label}]({catalog.artifact_url(service)}). "
         f"{service.artifact.summary}",
         f"**Verification scope:** {service.verification}",
-        f"**Upwork offer:** {offer_link(catalog, service)}",
     ]
     return [
-        f"### {service.offer}",
+        f"### {service.name}",
         "",
-        f"[![{service.offer}]({cover_path(service)})]({catalog.repo_url(service.repo)})",
+        f"[![{service.name}]({cover_path(service)})]({catalog.repo_url(service.repo)})",
         "",
         *(line for field in fields for line in bullet(field)),
         "",

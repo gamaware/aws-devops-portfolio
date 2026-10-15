@@ -17,7 +17,6 @@ STANDARD_README = "\n\n".join(
 
 RAW = {
     "owner": "example-owner",
-    "profile_url": "https://www.upwork.com/freelancers/~0100000000000000000",
     "index": {
         "name": "example-index",
         "kind": "index",
@@ -27,7 +26,7 @@ RAW = {
     "services": [
         {
             "id": "audit",
-            "offer": "Terraform audit and fix",
+            "name": "Terraform audit and fix",
             "problem": "Untrusted Terraform.",
             "repo": {
                 "name": "example-lab",
