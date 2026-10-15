@@ -3,6 +3,7 @@
 This repository is the index of a public AWS and DevOps portfolio: one card per service, each backed by a public
 repository. When reviewing pull requests:
 
+- Flag job-marketplace profile links, service offers, prices and sales badges; none are allowed.
 - Check that `README.md` text between `BEGIN GENERATED` and `END GENERATED` markers comes from `make readme`
   and `data/catalog.yaml`, not from hand edits.
 - Check that any change to `data/catalog.yaml` or `scripts/` keeps `make verify` passing and updates

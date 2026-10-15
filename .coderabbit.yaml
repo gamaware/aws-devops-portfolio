@@ -8,7 +8,8 @@ reviews:
       instructions: >-
         The single source for every service card. Repo names are GitHub names, local names are sibling folder names. Descriptions must follow "Demonstrates
         <capability> through <artifact>; verified <scope>." Every change needs `make readme` so the generated
-        cards in README.md stay in step.
+        cards in README.md stay in step. No job-marketplace profile links, service offers, prices or
+        sales badges.
     - path: "scripts/**"
       instructions: >-
         The checks mirror STANDARD rules documented in docs/checks.md and the ADRs. Flag any rule change that is
